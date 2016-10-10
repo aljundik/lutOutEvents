@@ -9,6 +9,5 @@ module.exports.organizerLogIn = function(req,res){
 	res
 		.status(201)
 		.json({"Message":"so far we are good"});
-
-
+		//final testing
 };
