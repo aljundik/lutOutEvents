@@ -1,9 +1,10 @@
 {
   "name": "lut_out",
   "version": "1.0.0",
-  "description": "",
+  "description": "Calender Based Application to manage events",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,6 +14,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.0"
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mocha": "^3.1.1",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.3"
   }
 }
