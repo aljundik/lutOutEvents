@@ -6,7 +6,7 @@
 	var bodyParser = require('body-parser');
 
 	var routes = require('./api/routes')
-	app.set('port',3000); // set up the port to be 3000
+	app.set(process.env.PORT); // set up the port to be the one set by the environment
 
 	app.use(function(req,res,next){ // again we are using anonymos function
 
@@ -22,7 +22,7 @@
 	app.use('/api',routes);
 
 
-	var server = app.listen(app.get('port'),function(){
+	var server = app.listen(process.env.PORT, process.env.IP, 511, function(){
 		var port = server.address().port;// defin a variable port and assign the current addres to it
 		console.log("the port is " + port);
 	});// set the app to listen to the retrieved port and run the statment after conferming that it is runnin (call back function)
