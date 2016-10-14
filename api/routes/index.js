@@ -5,6 +5,13 @@ var ctrlOrganizer = require('../controllers/organizer.controllers.js');
 
 router
 	.route('/organizer') 	
-	.get(ctrlOrganizer.organizerLogIn);
+	.post(ctrlOrganizer.organizerRegister)
+	.get(ctrlOrganizer.organizerGetAll);
+
+router
+	.route('/organizer/:organizerId')
+	.get(ctrlOrganizer.organizerGetOne)
+	.put(ctrlOrganizer.organizerEdit)
+	.delete(ctrlOrganizer.organizerDelete);
 
 module.exports = router;
