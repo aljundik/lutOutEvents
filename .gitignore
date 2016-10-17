@@ -44,5 +44,7 @@ jspm_packages
 *.tgz
 
 # MongoDB data folder
-data
+/data
 
+#Mongodb script for cloud9
+mongod
