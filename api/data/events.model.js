@@ -2,24 +2,28 @@ var mongoose = require('mongoose');
 
 
 var organizerSchema = new mongoose.Schema({
-	orgaizerName: {
+	organizerName: {
 		type : String,
 		required: true
 	},
-	orgaizerDescription: {
+	organizerDescription: {
 		type : String,
 		required: true
 	},
-	orgaizerLogo : [String],
+	organizerLogo : [String],
 
-	orgaizerUserName: {
+	organizerUserName: {
 		type : String,
 		required: true
 	},
-	orgaizerPassword: {
+	organizerPassword: {
 		type : String,
 		required: true
-	} 
+	},
+	organizerEmail: {
+		type : String,
+		required: true
+	}  
 });
 
 
@@ -107,3 +111,4 @@ var eventSchema = new mongoose.Schema({
 
 
 mongoose.model('Event',eventSchema);
+mongoose.model('Organizer',organizerSchema);
