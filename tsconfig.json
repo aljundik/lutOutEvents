@@ -10,7 +10,7 @@
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "types": [],
-    "rootDir": "app"
+    "outDir":"app/public/js"
   },
   "exclude": [
     "node_modules/*",
