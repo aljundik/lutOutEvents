@@ -15,11 +15,20 @@
 		next();// middleware handle functions needed to be run between request and respond
 	});
 
-		//test
-		
+	// REFACTOR THIS TO A SEPARATE FILE 
+	// Application Static Resources
+	app.use('/thirdparty', express.static(__dirname + '/node_modules'));
+	app.use('/dist', express.static(__dirname + '/app/public'));
 	//app.use(express.static(path.join(__dirname, 'public')));//define a static path for the routes
 	app.use(bodyParser.urlencoded({extended : false }));// only string and json,, this is a middleware to deal with requests paramaeters
+	
+	//Setting api routes
 	app.use('/api',routes);
+	
+	//Setting application route
+	app.get('/', function(req, res) {
+	    res.sendFile(path.join(__dirname + '/app/public/index.html'));
+	});
 
 
 	var server = app.listen(process.env.PORT, process.env.IP, 511, function(){
