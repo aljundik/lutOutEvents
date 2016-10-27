@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-css": "node-sass --include-path scss app/scss/main.scss   app/public/css/main.css",
+    "build-css": "node-sass --include-path scss webapp/scss/main.scss   webapp/public/css/main.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "watch": "tsc && concurrently \"tsc -w\" \"npm run watch-css\"",
     "postinstall": "typings install",
