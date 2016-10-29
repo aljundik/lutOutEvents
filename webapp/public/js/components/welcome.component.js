@@ -14,7 +14,7 @@ var WelcomeComponent = (function () {
     }
     WelcomeComponent = __decorate([
         core_1.Component({
-            template: "\n    <h1>WELCOME</h1>\n  "
+            template: "\n    <div class=\"container\">\n      <h1>WELCOME</h1>\n      <div class=\"calendar-background\"></div>\n      <login></login>\n      <about></about>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], WelcomeComponent);
