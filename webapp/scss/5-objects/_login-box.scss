@@ -1,0 +1,14 @@
+@import "../2-tools/bemify.scss";
+
+@include block('login-box'){
+    position: relative;
+    @include element('nav'){
+        margin: 10px;
+    }
+    @include element('field'){
+        margin: 2px 0;
+    }
+    @include element('button'){
+        margin: 10px 0;
+    }
+}

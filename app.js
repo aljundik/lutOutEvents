@@ -18,8 +18,7 @@
 	// REFACTOR THIS TO A SEPARATE FILE 
 	// Application Static Resources
 	app.use('/thirdparty', express.static(__dirname + '/node_modules'));
-	app.use('/dist', express.static(__dirname + '/app/public'));
-	//app.use(express.static(path.join(__dirname, 'public')));//define a static path for the routes
+	app.use('/dist', express.static(__dirname + '/webapp/public'));
 	app.use(bodyParser.urlencoded({extended : false }));// only string and json,, this is a middleware to deal with requests paramaeters
 	
 	//Setting api routes
@@ -27,7 +26,7 @@
 	
 	//Setting application route
 	app.get('/', function(req, res) {
-	    res.sendFile(path.join(__dirname + '/app/public/index.html'));
+	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
 	});
 
 
