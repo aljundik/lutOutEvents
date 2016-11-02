@@ -2,6 +2,8 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule }  from '@angular/router';
 
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+
 import { AppComponent }   from '../components/app.component';
 import { WelcomeComponent } from '../components/welcome.component';
 import { PageNotFoundComponent } from '../components/pagenotfound.component';
@@ -14,7 +16,7 @@ import { ScheduleModule } from 'primeng/components/schedule/schedule';
 
 @NgModule({
   imports:      [ 
-    BrowserModule, 
+    BrowserModule,
     RouterModule.forRoot([
       { path: '', component: WelcomeComponent },
       { path: 'events', component: EventsComponent },
