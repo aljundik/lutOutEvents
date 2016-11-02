@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var dburl = 'mongodb://localhost:27017/lut_out'; //setup the url to find the db usin the protocols,, somthins simillar to https
+var dburl = process.env.MONGODB_URI || 'mongodb://localhost:27017/lut_out'; //setup the url to find the db usin the protocols,, somthins simillar to https
 
 mongoose.connect(dburl);
 
