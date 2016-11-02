@@ -23,5 +23,7 @@ router
 
 router
 	.route('/organizer/:organizerId/event/:eventId')
-	.get(ctrlEvent.eventGetOne);
+	.get(ctrlEvent.eventGetOne)
+	.put(ctrlEvent.eventUpdateOne)
+	.delete(ctrlEvent.eventDeleteOne);	
 module.exports = router;
