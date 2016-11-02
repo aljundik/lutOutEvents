@@ -20,4 +20,8 @@ router
 	.route('/organizer/:organizerId/event')
 	.get(ctrlEvent.eventGetAll) 
 	.post(ctrlEvent.eventAddOne);
+
+router
+	.route('/organizer/:organizerId/event/:eventId')
+	.get(ctrlEvent.eventGetOne);
 module.exports = router;

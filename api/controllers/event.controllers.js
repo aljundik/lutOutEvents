@@ -104,3 +104,45 @@ module.exports.eventAddOne = function(req,res){
 
 };
 
+module.exports.eventGetOne = function(req,res){
+	var organizerId = req.params.organizerId;
+	var eventId = req.params.eventId;
+	console.log('GET eventId ' + eventId + ' for organizerId ' + organizerId);
+
+	Organizer
+	.findById(organizerId)
+	.select('events')
+	.exec(function(err, organizer) {
+		var response = {
+			status : 200,
+			message : {}
+		};
+		if (err) {
+			console.log("Error finding organizer");
+			response.status = 500;
+			response.message = err;
+		} else if(!organizer) {
+			console.log("organizer id not found in database", id);
+			response.status = 404;
+			response.message = {
+				"message" : "organizer ID not found " + id
+			};
+		} else {
+        // Get the review
+        response.message = organizer.events.id(eventId);
+        // If the review doesn't exist Mongoose returns null
+        if (!response.message) {
+        	response.status = 404;
+        	response.message = {
+        		"message" : "Event ID not found " + eventId
+        	};
+        }
+    }
+    res
+    .status(response.status)
+    .json(response.message);
+});
+
+
+};
+
