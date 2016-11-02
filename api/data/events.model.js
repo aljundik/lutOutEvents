@@ -52,7 +52,8 @@ var eventSchema = new mongoose.Schema({
 		required: true
 	},
 	eventStartDate: {
-		type : Date,
+		type : String,
+		required: true
 		//"default" : Date.now
 	},
 	eventDuration: {
@@ -76,11 +77,10 @@ var eventSchema = new mongoose.Schema({
 		} // always tore coodinates long/lat order 
 	},
 	eventURL: {
-		type : String,
-		required: true
+		type : String
 	},
 	eventDescription: {
-		type : Number,
+		type : String,
 		required: true
 	},
 	eventImage : [String] 

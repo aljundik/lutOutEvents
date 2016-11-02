@@ -33,3 +33,74 @@ module.exports.eventGetAll = function(req,res){
 	console.log("you are at the end of event getAll controller");
 
 };
+
+var _splitArray = function (input) {
+	var output;
+	if (input && input.length >0){
+		output = input.split(";");
+	} else {
+		output = [];
+	}
+	return output;
+};
+
+var _addEvent = function(req,res,organizer){
+
+	// add review array to hotel 
+	organizer.events.push({
+		eventTitle : req.body.eventTitle,
+		eventDuration : req.body.eventDuration,
+		eventDescription : req.body.eventDescription,
+		eventURL : req.body.eventURL,
+		eventStartDate : req.body.eventStartDate,
+		eventImage : _splitArray(req.body.eventImage),
+		eventPrice : parseInt(req.body.eventPrice, 10),
+		eventLocation : {
+				address : req.body.address,
+				coodrinates : [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+			}
+	});
+	organizer.save(function(err,eventUpdated){
+		if(err){
+			res
+				.status(500)
+				.json(err);
+		} else {
+			res
+				.status(201)
+				.json(eventUpdated.events[eventUpdated.events.length -1]);
+		}
+	});
+}
+
+module.exports.eventAddOne = function(req,res){
+	var organizerId = req.params.organizerId;
+	Organizer
+	.findById(organizerId)
+	.select('events')
+	.exec (function(err,doc){
+		var response = {
+			status : 200,
+			message : []};
+			if (err) {
+				console.log("Error finding Organizer");
+				response.status = 500;
+				response.message = err;
+			} else if(!doc) {
+				console.log("Organizer id not found in database", id);
+				response.status = 404;
+				response.message = {
+					"message" : "Organizer ID not found " + id
+				};
+			} 
+			if (doc){
+				_addEvent(req,res,doc);
+			} else {
+				res
+				.status(response.status)
+				.json(response.message);
+			}
+		});
+
+};
+

@@ -19,5 +19,5 @@ router
 router
 	.route('/organizer/:organizerId/event')
 	.get(ctrlEvent.eventGetAll) 
-
+	.post(ctrlEvent.eventAddOne);
 module.exports = router;
