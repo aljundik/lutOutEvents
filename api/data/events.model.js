@@ -1,30 +1,7 @@
 var mongoose = require('mongoose');
 
 
-var organizerSchema = new mongoose.Schema({
-	organizerName: {
-		type : String,
-		required: true
-	},
-	organizerDescription: {
-		type : String,
-		required: true
-	},
-	organizerLogo : [String],
 
-	organizerUserName: {
-		type : String,
-		required: true
-	},
-	organizerPassword: {
-		type : String,
-		required: true
-	},
-	organizerEmail: {
-		type : String,
-		required: true
-	}  
-});
 
 
 var studentSchema = new mongoose.Schema({
@@ -108,7 +85,33 @@ var eventSchema = new mongoose.Schema({
 	},
 	eventImage : [String] 
 });
+var organizerSchema = new mongoose.Schema({
+	organizerName: {
+		type : String,
+		required: true
+	},
+	organizerDescription: {
+		type : String,
+		required: true
+	},
+	organizerLogo : [String],
+
+	organizerUserName: {
+		type : String,
+		required: true
+	},
+	organizerPassword: {
+		type : String,
+		required: true
+	},
+	organizerEmail: {
+		type : String,
+		required: true
+	},
+	events :[eventSchema]  
+	
+});
 
 
-mongoose.model('Event',eventSchema);
+//mongoose.model('Event',eventSchema);
 mongoose.model('Organizer',organizerSchema);

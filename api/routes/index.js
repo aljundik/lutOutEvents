@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var ctrlOrganizer = require('../controllers/organizer.controllers.js');
+var ctrlEvent = require('../controllers/event.controllers.js');
 
 router
 	.route('/organizer') 	
@@ -13,5 +14,10 @@ router
 	.get(ctrlOrganizer.organizerGetOne)
 	.put(ctrlOrganizer.organizerEdit)
 	.delete(ctrlOrganizer.organizerDelete);
+
+// events routes
+router
+	.route('/organizer/:organizerId/event')
+	.get(ctrlEvent.eventGetAll) 
 
 module.exports = router;
