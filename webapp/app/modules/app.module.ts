@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule }  from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
@@ -12,10 +13,14 @@ import { LoginComponent } from '../components/login.component';
 import { EventsComponent } from '../components/events.component';
 import { NavigationComponent } from '../components/navigation.component';
 import { EventListComponent } from '../components/eventlist.component';
+
+import { EventsService }   from '../services/events.service';
+
 import { ScheduleModule } from 'primeng/components/schedule/schedule';
 
 @NgModule({
   imports:      [ 
+    HttpModule,
     BrowserModule,
     RouterModule.forRoot([
       { path: '', component: WelcomeComponent },
@@ -25,8 +30,12 @@ import { ScheduleModule } from 'primeng/components/schedule/schedule';
     ScheduleModule
     
   ],
+  providers: [
+    EventsService
+  ],
   declarations: [ AppComponent, WelcomeComponent, PageNotFoundComponent, 
-                  AboutComponent, LoginComponent, EventsComponent, NavigationComponent, EventListComponent ],
+                  AboutComponent, LoginComponent, NavigationComponent,
+                  EventsComponent, EventListComponent ],
   bootstrap:    [ AppComponent ]
 })
 

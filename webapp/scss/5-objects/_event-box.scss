@@ -1,0 +1,42 @@
+@import "../2-tools/bemify.scss";
+@import "../2-tools/utils.scss";
+
+@include block('event-box'){
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 4px 4px;
+    padding: 8px 0;
+    margin-bottom: 25px;
+    background-color: $white;
+    @include transition(background-color 0.5s ease);
+    @include transition(border-color 0.5s ease);
+    
+    &:hover{
+        border-color: $dark-purple;
+        background-color: $super-light-purple;
+    }
+    @include element('title'){
+        margin-top: 0;
+        text-align: center;
+        color: $dark-gray;
+    }
+    @include element('info'){
+        width: 20%;
+        float: left;
+        cursor:pointer;
+        @include modifier('pointer'){
+            cursor: pointer;
+            @include transition(color 0.2s ease);
+            &:hover{
+                color: $dark-purple;
+            }
+        }
+        @include element('icon'){
+            font-size: 34px;
+            width: 100%;
+            text-align: center;
+        }
+        @include element('data'){
+            text-align: center;
+        }
+    }
+}

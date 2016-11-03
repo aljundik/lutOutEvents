@@ -441,68 +441,6 @@ textarea {
 /* ==========================================================================
    Imports
    ========================================================================== */
-/* ==========================================================================
-   Objects
-   ========================================================================== */
-/**
- * Design-free objects, abstractions and patterns.
- */
-/**
- * objects/_main.scss
- */
-/* ==========================================================================
-   Imports
-   ========================================================================== */
-/* Extends
-   ========================================================================== */
-/* Main
-   ========================================================================== */
-.about-us {
-  border: solid 1px;
-  padding: 0 10px;
-  color: #800080;
-  position: relative;
-  background: #e6e6ff;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  border-radius: 4px; }
-  .about-us__title {
-    color: #000;
-    font-size: 16px; }
-  .about-us__description {
-    color: #000;
-    font-size: 12px; }
-
-.calendar-background {
-  background-image: url("../img/calendar-background.jpg");
-  height: 70%;
-  width: 100%;
-  position: absolute;
-  background-size: 100%;
-  background-repeat: no-repeat; }
-
-.login-box {
-  position: relative; }
-  .login-box__nav {
-    margin: 10px; }
-  .login-box__field {
-    margin: 2px 0; }
-  .login-box__button {
-    margin: 10px 0; }
-
-/* ==========================================================================
-   Vendor
-   ========================================================================== */
-/**
- * Third party components.
- */
-/**
- * vendor/_main.scss
- */
-/* ==========================================================================
-   Imports
-   ========================================================================== */
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -2832,6 +2770,114 @@ textarea {
   overflow: visible;
   clip: auto; }
 
+h2 {
+  color: #800080; }
+
+/* ==========================================================================
+   Objects
+   ========================================================================== */
+/**
+ * Design-free objects, abstractions and patterns.
+ */
+/**
+ * objects/_main.scss
+ */
+/* ==========================================================================
+   Imports
+   ========================================================================== */
+/* Extends
+   ========================================================================== */
+/* Main
+   ========================================================================== */
+.about-us {
+  border: solid 1px;
+  padding: 0 10px;
+  color: #800080;
+  position: relative;
+  background: #FFF7FF;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px; }
+  .about-us__title {
+    color: #000;
+    font-size: 16px; }
+  .about-us__description {
+    color: #000;
+    font-size: 12px; }
+
+.calendar-background {
+  background-image: url("../img/calendar-background.jpg");
+  height: 70%;
+  width: 100%;
+  position: absolute;
+  background-size: 100%;
+  background-repeat: no-repeat; }
+
+.login-box {
+  position: relative; }
+  .login-box__nav {
+    margin: 10px; }
+  .login-box__field {
+    margin: 2px 0; }
+  .login-box__button {
+    margin: 10px 0; }
+
+.event-box {
+  border: 1px solid #ddd;
+  border-radius: 4px 4px 4px 4px;
+  padding: 8px 0;
+  margin-bottom: 25px;
+  background-color: #FFF;
+  -webkit-transition: background-color 0.5s ease;
+  -moz-transition: background-color 0.5s ease;
+  -ms-transition: background-color 0.5s ease;
+  -o-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
+  -webkit-transition: border-color 0.5s ease;
+  -moz-transition: border-color 0.5s ease;
+  -ms-transition: border-color 0.5s ease;
+  -o-transition: border-color 0.5s ease;
+  transition: border-color 0.5s ease; }
+  .event-box:hover {
+    border-color: #800080;
+    background-color: #FFF7FF; }
+  .event-box__title {
+    margin-top: 0;
+    text-align: center;
+    color: #595959; }
+  .event-box__info {
+    width: 20%;
+    float: left;
+    cursor: pointer; }
+    .event-box__info--pointer {
+      cursor: pointer;
+      -webkit-transition: color 0.2s ease;
+      -moz-transition: color 0.2s ease;
+      -ms-transition: color 0.2s ease;
+      -o-transition: color 0.2s ease;
+      transition: color 0.2s ease; }
+      .event-box__info--pointer:hover {
+        color: #800080; }
+    .event-box__info__icon {
+      font-size: 34px;
+      width: 100%;
+      text-align: center; }
+    .event-box__info__data {
+      text-align: center; }
+
+/* ==========================================================================
+   Vendor
+   ========================================================================== */
+/**
+ * Third party components.
+ */
+/**
+ * vendor/_main.scss
+ */
+/* ==========================================================================
+   Imports
+   ========================================================================== */
 /* ==========================================================================
    Components
    ========================================================================== */
