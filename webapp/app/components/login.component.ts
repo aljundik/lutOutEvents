@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector:'login',
   template: `
-    <div class="col-xs-12 col-sm-4 col-sm-offset-9 login-box">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-8 login-box">
       <div class="row">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs login-box__nav" role="tablist">
