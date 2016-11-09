@@ -2,7 +2,29 @@ var mongoose = require('mongoose');
 
 
 
-
+var customEventSchema = new mongoose.Schema({
+	customEventTitle: {
+		type : String,
+		required: true
+	},
+	customEventStartDate: {
+		type : String,
+		//"default" : Date.now
+	},
+	customEventDuration: {
+		type : String,
+		required: true
+	},
+	customEventCreatedOn: {
+		type : Date,
+		"default" : Date.now
+	},
+	customEventDescription: {
+		type : String,
+		required: true
+	}
+	
+});
 
 var studentSchema = new mongoose.Schema({
 	studentName: {
@@ -16,35 +38,14 @@ var studentSchema = new mongoose.Schema({
 	studentPassword: {
 		type : String,
 		required: true
-	}
-
-});
-
-
-var customEventSchema = new mongoose.Schema({
-	customEventTitle: {
+	},
+	studentEmail: {
 		type : String,
 		required: true
 	},
-	customEventStartDate: {
-		type : Date,
-		//"default" : Date.now
-	},
-	customEventDuration: {
-		type : String,
-		required: true
-	},
-	customEventCreatedOn: {
-		type : Date,
-		"default" : Date.now
-	},
-	customEventDescription: {
-		type : Number,
-		required: true
-	}
-	
-});
+	customEvent :[customEventSchema]
 
+});
 
 var eventSchema = new mongoose.Schema({
 	eventTitle: {
@@ -115,3 +116,4 @@ var organizerSchema = new mongoose.Schema({
 
 //mongoose.model('Event',eventSchema);
 mongoose.model('Organizer',organizerSchema);
+mongoose.model('Student',studentSchema);
