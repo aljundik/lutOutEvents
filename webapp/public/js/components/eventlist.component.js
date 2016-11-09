@@ -9,15 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var events_service_1 = require('../services/events.service');
 var EventListComponent = (function () {
-    function EventListComponent() {
+    function EventListComponent(eventsService) {
+        this.eventsService = eventsService;
     }
+    EventListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.eventsService.getEvents()
+            .subscribe(function (data) { return _this.events = data; });
+    };
     EventListComponent = __decorate([
         core_1.Component({
             selector: 'event-list',
-            template: "\n    <p>This is the Event List Component</p>\n  "
+            template: "\n    <h2 class=\"section-title\">Events</h2>\n    <div *ngFor=\"let event of events\">\n      <div class=\"col-xs-12 col-lg-6 event-box\">\n        <h3 class=\"col-xs-12 event-box__title\">{{event.name}}</h3>\n        <div class=\"col-xs-12 event-box__info-section\">\n          <div class=\"event-box__info\">\n            <i class=\"fa fa-calendar event-box__info__icon\"></i>\n            <div class=\"text-center event-box__info__data\">{{event.date | date:'yMMMd'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <i class=\"fa fa-clock-o event-box__info__icon\"></i>\n            <div class=\"text-center event-box__info__data\">{{event.date | date:'jms'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <div class=\"fa fa-money event-box__info__icon\"></div>\n            <div class=\"text-center event-box__info__data\">{{event.price | currency:'EUR':true:'1.2-2'}}</div>\n          </div>\n          <div class=\"event-box__info event-box__info--pointer\">\n            <div class=\"fa fa-eye event-box__info__icon\"></div>\n            <div class=\"text-center event-box__info__data\">See Details</div>\n          </div>\n          <div class=\"event-box__info event-box__info--pointer\">\n            <div class=\"fa fa-calendar-plus-o event-box__info__icon\"></div>\n            <div class=\"event-box__info__data\">Add</div>\n          </div>\n        </div>\n      </div>\n    </div>\n  "
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [events_service_1.EventsService])
     ], EventListComponent);
     return EventListComponent;
 }());

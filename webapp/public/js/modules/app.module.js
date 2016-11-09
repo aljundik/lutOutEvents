@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var router_1 = require('@angular/router');
+var http_1 = require('@angular/http');
 var app_component_1 = require('../components/app.component');
 var welcome_component_1 = require('../components/welcome.component');
 var pagenotfound_component_1 = require('../components/pagenotfound.component');
@@ -19,6 +20,7 @@ var login_component_1 = require('../components/login.component');
 var events_component_1 = require('../components/events.component');
 var navigation_component_1 = require('../components/navigation.component');
 var eventlist_component_1 = require('../components/eventlist.component');
+var events_service_1 = require('../services/events.service');
 var schedule_1 = require('primeng/components/schedule/schedule');
 var AppModule = (function () {
     function AppModule() {
@@ -26,6 +28,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [
+                http_1.HttpModule,
                 platform_browser_1.BrowserModule,
                 router_1.RouterModule.forRoot([
                     { path: '', component: welcome_component_1.WelcomeComponent },
@@ -34,8 +37,12 @@ var AppModule = (function () {
                 ]),
                 schedule_1.ScheduleModule
             ],
+            providers: [
+                events_service_1.EventsService
+            ],
             declarations: [app_component_1.AppComponent, welcome_component_1.WelcomeComponent, pagenotfound_component_1.PageNotFoundComponent,
-                about_component_1.AboutComponent, login_component_1.LoginComponent, events_component_1.EventsComponent, navigation_component_1.NavigationComponent, eventlist_component_1.EventListComponent],
+                about_component_1.AboutComponent, login_component_1.LoginComponent, navigation_component_1.NavigationComponent,
+                events_component_1.EventsComponent, eventlist_component_1.EventListComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

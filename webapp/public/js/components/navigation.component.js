@@ -15,7 +15,7 @@ var NavigationComponent = (function () {
     NavigationComponent = __decorate([
         core_1.Component({
             selector: 'navigation',
-            template: "\n    <div class=\"container-fluid navigation-box\">\n      <div class=\"container\">\n        <nav class=\"col-xs-12\">\n          <div class=\"row\">\n            <a href=\"#\">All Events</a>\n            <a href=\"#\">My Calendar</a>\n            <a [routerLink]=\"['']\">Logout</a>\n          </div>\n        </nav>\n      </div>\n    </div>\n  "
+            template: "\n    <div class=\"container-fluid navigation-box\">\n      <div class=\"container\">\n        <nav class=\"navbar navbar-default\">\n          <div class=\"container-fluid\">\n            <ul class=\"nav navbar-nav\">\n              <li><a href=\"#\">All Events</a></li>\n              <li><a href=\"#\">My Calendar</a></li>\n              <li><a [routerLink]=\"['']\">Logout</a></li>\n            </ul>\n          </div>\n        </nav>\n      </div>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], NavigationComponent);

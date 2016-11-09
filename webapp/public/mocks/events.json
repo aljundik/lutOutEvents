@@ -1,0 +1,27 @@
+{
+  "eventsData":[{
+  "id": 1,
+  "name": "Newcommers Welcome Party!",
+  "date": "2512-01-04T14:00:00",
+  "price": 5,
+  "url": "2512-01-04-newcomers-welcome-party"
+}, {
+  "id": 2,
+  "name": "Halloween Party",
+  "date": "2512-10-31T14:00:00",
+  "price": 20,
+  "url": "2512-10-31-newcomers-welcome-party"
+}, {
+  "id": 3,
+  "name": "Orientation Day 1",
+  "date": "2512-06-06T20:00:00",
+  "price": 0,
+  "url": "2512-06-06-newcomers-welcome-party"
+}, {
+  "id": 4,
+  "name": "Registration Day",
+  "date": "2512-06-08T21:00:00",
+  "price": 0,
+  "url": "2512-06-08-newcomers-welcome-party"
+}]
+}
