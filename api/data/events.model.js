@@ -1,30 +1,7 @@
 var mongoose = require('mongoose');
 
 
-var organizerSchema = new mongoose.Schema({
-	organizerName: {
-		type : String,
-		required: true
-	},
-	organizerDescription: {
-		type : String,
-		required: true
-	},
-	organizerLogo : [String],
 
-	organizerUserName: {
-		type : String,
-		required: true
-	},
-	organizerPassword: {
-		type : String,
-		required: true
-	},
-	organizerEmail: {
-		type : String,
-		required: true
-	}  
-});
 
 
 var studentSchema = new mongoose.Schema({
@@ -75,7 +52,8 @@ var eventSchema = new mongoose.Schema({
 		required: true
 	},
 	eventStartDate: {
-		type : Date,
+		type : String,
+		required: true
 		//"default" : Date.now
 	},
 	eventDuration: {
@@ -99,16 +77,41 @@ var eventSchema = new mongoose.Schema({
 		} // always tore coodinates long/lat order 
 	},
 	eventURL: {
-		type : String,
-		required: true
+		type : String
 	},
 	eventDescription: {
-		type : Number,
+		type : String,
 		required: true
 	},
 	eventImage : [String] 
 });
+var organizerSchema = new mongoose.Schema({
+	organizerName: {
+		type : String,
+		required: true
+	},
+	organizerDescription: {
+		type : String,
+		required: true
+	},
+	organizerLogo : [String],
+
+	organizerUserName: {
+		type : String,
+		required: true
+	},
+	organizerPassword: {
+		type : String,
+		required: true
+	},
+	organizerEmail: {
+		type : String,
+		required: true
+	},
+	events :[eventSchema]  
+	
+});
 
 
-mongoose.model('Event',eventSchema);
+//mongoose.model('Event',eventSchema);
 mongoose.model('Organizer',organizerSchema);
