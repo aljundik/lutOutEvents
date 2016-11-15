@@ -19,13 +19,23 @@
 	// Application Static Resources
 	app.use('/thirdparty', express.static(__dirname + '/node_modules'));
 	app.use('/dist', express.static(__dirname + '/webapp/public'));
-	app.use(bodyParser.urlencoded({extended : false }));// only string and json,, this is a middleware to deal with requests paramaeters
+	//app.use(bodyParser.urlencoded({extended : false }));// only string and json,, this is a middleware to deal with requests paramaeters
+	app.use(bodyParser.json());
 	
 	//Setting api routes
 	app.use('/api',routes);
 	
-	//Setting application route
+	//Setting application routes
 	app.get('/', function(req, res) {
+	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
+	});
+	app.get('/events', function(req, res) {
+	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
+	});
+	app.get('/event*', function(req, res) {
+	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
+	});
+	app.get('/addOrganizer', function(req, res) {
 	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
 	});
 
