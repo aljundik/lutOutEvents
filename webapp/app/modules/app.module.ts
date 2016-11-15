@@ -1,10 +1,11 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule }  from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { FormsModule }   from '@angular/forms';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }   from '../components/app.component';
 import { WelcomeComponent } from '../components/welcome.component';
 import { PageNotFoundComponent } from '../components/pagenotfound.component';
@@ -13,8 +14,12 @@ import { LoginComponent } from '../components/login.component';
 import { EventsComponent } from '../components/events.component';
 import { NavigationComponent } from '../components/navigation.component';
 import { EventListComponent } from '../components/eventlist.component';
+import { EventDetailPageComponent } from '../components/eventdetailpage.component';
+import { EventDetailInfoComponent } from '../components/eventdetailinfo.component';
+import { OrganizerComponent } from '../components/organizer.component';
 
 import { EventsService }   from '../services/events.service';
+import { OrganizerService }   from '../services/organizer.service';
 
 import { ScheduleModule } from 'primeng/components/schedule/schedule';
 
@@ -22,20 +27,19 @@ import { ScheduleModule } from 'primeng/components/schedule/schedule';
   imports:      [ 
     HttpModule,
     BrowserModule,
-    RouterModule.forRoot([
-      { path: '', component: WelcomeComponent },
-      { path: 'events', component: EventsComponent },
-      { path: '**', component: PageNotFoundComponent }
-    ]),
+    FormsModule,
+    AppRoutingModule,
     ScheduleModule
     
   ],
   providers: [
-    EventsService
+    EventsService,
+    OrganizerService
   ],
   declarations: [ AppComponent, WelcomeComponent, PageNotFoundComponent, 
                   AboutComponent, LoginComponent, NavigationComponent,
-                  EventsComponent, EventListComponent ],
+                  EventsComponent, EventListComponent, EventDetailPageComponent, EventDetailInfoComponent,
+                  OrganizerComponent ],
   bootstrap:    [ AppComponent ]
 })
 
