@@ -25,11 +25,19 @@ router
 	.get(ctrlEvent.eventGetAll) 
 	.post(ctrlEvent.eventAddOne);
 
+router 
+	.route('/organizer/:organizerId/recent')
+	.get(ctrlEvent.sortByRecent);
+
 router
 	.route('/organizer/:organizerId/event/:eventId')
 	.get(ctrlEvent.eventGetOne)
 	.put(ctrlEvent.eventUpdateOne)
 	.delete(ctrlEvent.eventDeleteOne);
+
+router
+	.route('/events')
+	.get(ctrlEvent.listAllEvents);
 
 
 // Student Routes 
