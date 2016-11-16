@@ -12,27 +12,28 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var http_2 = require('@angular/http');
 require('rxjs/add/operator/map');
-var OrganizerService = (function () {
-    function OrganizerService(http) {
+var StudentService = (function () {
+    function StudentService(http) {
         this.http = http;
-        this.organizerURL = 'api/organizer';
+        this.studentURL = 'api/student';
     }
-    OrganizerService.prototype.extractData = function (res) {
+    StudentService.prototype.extractData = function (res) {
         var body = res.json();
         return body.data || {};
     };
-    OrganizerService.prototype.addOrganizer = function (organizer) {
+    StudentService.prototype.addStudent = function (student) {
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
-        var body = JSON.stringify(organizer);
-        return this.http.post(this.organizerURL, body, options)
+        var body = JSON.stringify(student);
+        console.log(body);
+        return this.http.post(this.studentURL, body, options)
             .map(this.extractData);
     };
-    OrganizerService = __decorate([
+    StudentService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], OrganizerService);
-    return OrganizerService;
+    ], StudentService);
+    return StudentService;
 }());
-exports.OrganizerService = OrganizerService;
-//# sourceMappingURL=organizer.service.js.map
+exports.StudentService = StudentService;
+//# sourceMappingURL=student.service.js.map

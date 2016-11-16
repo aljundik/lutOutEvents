@@ -35,7 +35,7 @@ import { OrganizerService } from '../services/organizer.service';
         </div>
         <button (click)="addOrganizer(organizer, $event)" type="submit" class="btn btn-default">Add</button>
       </form>
-      <p *ngIf="showSuccessMessage" class="bg-success">Organizer '{{organizer.organizerName}}' added successfully!</p>
+      <p *ngIf="showSuccessMessage" class="col-xs-12 bg-success">Organizer '{{organizer.organizerName}}' added successfully!</p>
     </div>
   `
   
