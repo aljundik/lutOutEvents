@@ -19,9 +19,15 @@
 	// Application Static Resources
 	app.use('/thirdparty', express.static(__dirname + '/node_modules'));
 	app.use('/dist', express.static(__dirname + '/webapp/public'));
+<<<<<<< HEAD
 	app.use(bodyParser.urlencoded({extended : false }));// only string and json,, this is a middleware to deal with requests paramaeters
 	//app.use(bodyParser.json());
 	
+=======
+	//app.use(bodyParser.urlencoded({extended : false }));// only string and json,, this is a middleware to deal with requests paramaeters
+	app.use(bodyParser.json());
+
+>>>>>>> develop
 	//Setting api routes
 	app.use('/api',routes);
 	

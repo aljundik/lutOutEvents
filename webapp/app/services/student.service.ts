@@ -2,27 +2,27 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 
-import { Organizer } from '../models/organizer.class';
+import { Student } from '../models/student.class';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class OrganizerService {
+export class StudentService {
 
   constructor(private http: Http) { }
   
-  private organizerURL = 'api/organizer';
+  private studentURL = 'api/student';
   
   private extractData(res: Response) {
     let body = res.json();
     return body.data || { };
   }
 
-  addOrganizer(organizer: Organizer) {
+  addStudent(student: Student) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    let body = JSON.stringify(organizer);
-    
-    return this.http.post(this.organizerURL, body, options)
+    let body = JSON.stringify(student);
+    console.log(body);
+    return this.http.post(this.studentURL, body, options)
           .map(this.extractData);
   }
 

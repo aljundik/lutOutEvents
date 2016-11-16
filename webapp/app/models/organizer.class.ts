@@ -6,6 +6,6 @@ export class Organizer {
   	public organizerPassword: string,
   	public organizerEmail: string,
     public organizerDescription: string,
-  	public organizerLogo: string,
+  	public organizerLogo: string
 	){}
 }

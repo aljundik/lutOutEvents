@@ -26,6 +26,7 @@ var eventdetailinfo_component_1 = require('../components/eventdetailinfo.compone
 var organizer_component_1 = require('../components/organizer.component');
 var events_service_1 = require('../services/events.service');
 var organizer_service_1 = require('../services/organizer.service');
+var student_service_1 = require('../services/student.service');
 var schedule_1 = require('primeng/components/schedule/schedule');
 var AppModule = (function () {
     function AppModule() {
@@ -41,7 +42,8 @@ var AppModule = (function () {
             ],
             providers: [
                 events_service_1.EventsService,
-                organizer_service_1.OrganizerService
+                organizer_service_1.OrganizerService,
+                student_service_1.StudentService
             ],
             declarations: [app_component_1.AppComponent, welcome_component_1.WelcomeComponent, pagenotfound_component_1.PageNotFoundComponent,
                 about_component_1.AboutComponent, login_component_1.LoginComponent, navigation_component_1.NavigationComponent,

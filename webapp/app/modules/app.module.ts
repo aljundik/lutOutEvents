@@ -20,6 +20,7 @@ import { OrganizerComponent } from '../components/organizer.component';
 
 import { EventsService }   from '../services/events.service';
 import { OrganizerService }   from '../services/organizer.service';
+import { StudentService }   from '../services/student.service';
 
 import { ScheduleModule } from 'primeng/components/schedule/schedule';
 
@@ -34,7 +35,8 @@ import { ScheduleModule } from 'primeng/components/schedule/schedule';
   ],
   providers: [
     EventsService,
-    OrganizerService
+    OrganizerService,
+    StudentService
   ],
   declarations: [ AppComponent, WelcomeComponent, PageNotFoundComponent, 
                   AboutComponent, LoginComponent, NavigationComponent,
