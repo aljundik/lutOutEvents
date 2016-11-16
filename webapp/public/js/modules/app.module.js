@@ -24,9 +24,11 @@ var eventlist_component_1 = require('../components/eventlist.component');
 var eventdetailpage_component_1 = require('../components/eventdetailpage.component');
 var eventdetailinfo_component_1 = require('../components/eventdetailinfo.component');
 var organizer_component_1 = require('../components/organizer.component');
+var addeventpage_component_1 = require('../components/addeventpage.component');
 var events_service_1 = require('../services/events.service');
 var organizer_service_1 = require('../services/organizer.service');
 var student_service_1 = require('../services/student.service');
+var login_service_1 = require('../services/login.service');
 var schedule_1 = require('primeng/components/schedule/schedule');
 var AppModule = (function () {
     function AppModule() {
@@ -43,12 +45,13 @@ var AppModule = (function () {
             providers: [
                 events_service_1.EventsService,
                 organizer_service_1.OrganizerService,
-                student_service_1.StudentService
+                student_service_1.StudentService,
+                login_service_1.LoginService
             ],
             declarations: [app_component_1.AppComponent, welcome_component_1.WelcomeComponent, pagenotfound_component_1.PageNotFoundComponent,
                 about_component_1.AboutComponent, login_component_1.LoginComponent, navigation_component_1.NavigationComponent,
                 events_component_1.EventsComponent, eventlist_component_1.EventListComponent, eventdetailpage_component_1.EventDetailPageComponent, eventdetailinfo_component_1.EventDetailInfoComponent,
-                organizer_component_1.OrganizerComponent],
+                organizer_component_1.OrganizerComponent, addeventpage_component_1.AddEventComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -17,10 +17,12 @@ import { EventListComponent } from '../components/eventlist.component';
 import { EventDetailPageComponent } from '../components/eventdetailpage.component';
 import { EventDetailInfoComponent } from '../components/eventdetailinfo.component';
 import { OrganizerComponent } from '../components/organizer.component';
+import { AddEventComponent } from '../components/addeventpage.component';
 
 import { EventsService }   from '../services/events.service';
 import { OrganizerService }   from '../services/organizer.service';
 import { StudentService }   from '../services/student.service';
+import { LoginService } from '../services/login.service';
 
 import { ScheduleModule } from 'primeng/components/schedule/schedule';
 
@@ -31,17 +33,17 @@ import { ScheduleModule } from 'primeng/components/schedule/schedule';
     FormsModule,
     AppRoutingModule,
     ScheduleModule
-    
   ],
   providers: [
     EventsService,
     OrganizerService,
-    StudentService
+    StudentService,
+    LoginService
   ],
   declarations: [ AppComponent, WelcomeComponent, PageNotFoundComponent, 
                   AboutComponent, LoginComponent, NavigationComponent,
                   EventsComponent, EventListComponent, EventDetailPageComponent, EventDetailInfoComponent,
-                  OrganizerComponent ],
+                  OrganizerComponent, AddEventComponent ],
   bootstrap:    [ AppComponent ]
 })
 

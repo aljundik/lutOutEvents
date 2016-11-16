@@ -4,6 +4,8 @@ var router = express.Router();
 var ctrlOrganizer = require('../controllers/organizer.controllers.js');
 var ctrlEvent = require('../controllers/event.controllers.js');
 var ctrlStudent = require('../controllers/student.controllers.js');
+var ctrlStudent = require('../controllers/student.controllers.js');
+var ctrlLogin = require('../controllers/login.controllers.js');
 var ctrlCustomEvent = require('../controllers/customEvent.controllers.js');
 
 router
@@ -55,6 +57,10 @@ router
 	.delete(ctrlCustomEvent.customEventDeleteOne);
 
 
+// Login Events
+router
+	.route('/login')
+	.post(ctrlLogin.userLogin);
 
 
 module.exports = router;

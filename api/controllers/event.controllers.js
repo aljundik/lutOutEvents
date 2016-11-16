@@ -49,10 +49,10 @@ var _addEvent = function(req,res,organizer){
 	// add review array to hotel 
 	organizer.events.push({
 		eventTitle : req.body.eventTitle,
-		eventDuration : req.body.eventDuration,
 		eventDescription : req.body.eventDescription,
 		eventURL : req.body.eventURL,
 		eventStartDate : req.body.eventStartDate,
+		eventEndDate : req.body.eventEndDate,
 		eventImage : _splitArray(req.body.eventImage),
 		eventPrice : parseInt(req.body.eventPrice, 10),
 		eventLocation : {

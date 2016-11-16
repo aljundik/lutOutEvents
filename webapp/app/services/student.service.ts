@@ -21,9 +21,16 @@ export class StudentService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(student);
-    console.log(body);
     return this.http.post(this.studentURL, body, options)
           .map(this.extractData);
   }
+  
+  // getStudentById(studentId: string) {
+  //   let headers = new Headers({ 'Content-Type': 'application/json' });
+  //   let options = new RequestOptions({ headers: headers });
+  //   let body = JSON.stringify(student);
+  //   return this.http.post(this.studentURL + '/' + studentId, body, options)
+  //         .map(this.extractData);
+  // }
 
 }

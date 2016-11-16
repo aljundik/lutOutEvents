@@ -25,7 +25,6 @@ var StudentService = (function () {
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
         var body = JSON.stringify(student);
-        console.log(body);
         return this.http.post(this.studentURL, body, options)
             .map(this.extractData);
     };

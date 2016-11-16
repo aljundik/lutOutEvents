@@ -10,24 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var http_2 = require('@angular/http');
 require('rxjs/add/operator/map');
-var EventsService = (function () {
-    function EventsService(http) {
+var LoginService = (function () {
+    function LoginService(http) {
         this.http = http;
+        this.loginURL = 'api/login';
     }
-    EventsService.prototype.getEvents = function () {
-        return this.http.get('dist/mocks/events.json')
-            .map(function (response) { return response.json().eventsData; });
+    LoginService.prototype.extractData = function (res) {
+        var body = res.json();
+        return body;
     };
-    EventsService.prototype.getEventsByOrganizer = function (organizerId) {
-        return this.http.get('/organizer/' + organizerId + '/event')
-            .map(function (response) { return response.json().eventsData; });
+    LoginService.prototype.login = function (user) {
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_2.RequestOptions({ headers: headers });
+        var body = JSON.stringify({ userName: user.userUserName, userPassword: user.userPassword });
+        return this.http.post(this.loginURL, body, options)
+            .map(this.extractData);
     };
-    EventsService = __decorate([
+    LoginService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], EventsService);
-    return EventsService;
+    ], LoginService);
+    return LoginService;
 }());
-exports.EventsService = EventsService;
-//# sourceMappingURL=events.service.js.map
+exports.LoginService = LoginService;
+//# sourceMappingURL=login.service.js.map

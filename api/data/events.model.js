@@ -57,7 +57,7 @@ var eventSchema = new mongoose.Schema({
 		required: true
 		//"default" : Date.now
 	},
-	eventDuration: {
+	eventEndDate: {
 		type : String,
 		required: true
 	},

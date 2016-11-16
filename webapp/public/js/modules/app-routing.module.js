@@ -14,6 +14,7 @@ var welcome_component_1 = require('../components/welcome.component');
 var events_component_1 = require('../components/events.component');
 var eventdetailpage_component_1 = require('../components/eventdetailpage.component');
 var organizer_component_1 = require('../components/organizer.component');
+var addeventpage_component_1 = require('../components/addeventpage.component');
 var pagenotfound_component_1 = require('../components/pagenotfound.component');
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -23,8 +24,9 @@ var AppRoutingModule = (function () {
             imports: [
                 router_1.RouterModule.forRoot([
                     { path: '', component: welcome_component_1.WelcomeComponent },
-                    { path: 'events', component: events_component_1.EventsComponent },
+                    { path: 'events/:id', component: events_component_1.EventsComponent },
                     { path: 'event/:id', component: eventdetailpage_component_1.EventDetailPageComponent },
+                    { path: 'event/addEvent/:id', component: addeventpage_component_1.AddEventComponent },
                     { path: 'addOrganizer', component: organizer_component_1.OrganizerComponent },
                     { path: '**', component: pagenotfound_component_1.PageNotFoundComponent }
                 ])

@@ -13,5 +13,10 @@ export class EventsService {
     return this.http.get('dist/mocks/events.json')
           .map(response => <Event[]>response.json().eventsData as Event[]);
   }
+  
+  getEventsByOrganizer(organizerId: string) {
+    return this.http.get('/organizer/'+ organizerId +'/event')
+          .map(response => <Event[]>response.json().eventsData as Event[]);
+  }
 
 }
