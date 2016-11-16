@@ -25,9 +25,7 @@
 	
 // =======
 // 	//app.use(bodyParser.urlencoded({extended : false }));// only string and json,, this is a middleware to deal with requests paramaeters
-// 	app.use(bodyParser.json());
-
-// >>>>>>> develop
+ 	app.use(bodyParser.json());
 	//Setting api routes
 	app.use('/api',routes);
 	
