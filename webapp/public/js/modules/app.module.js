@@ -30,6 +30,7 @@ var organizer_service_1 = require('../services/organizer.service');
 var student_service_1 = require('../services/student.service');
 var login_service_1 = require('../services/login.service');
 var schedule_1 = require('primeng/components/schedule/schedule');
+var core_module_js_1 = require('angular2-google-maps/core/core-module.js');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -40,7 +41,10 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 app_routing_module_1.AppRoutingModule,
-                schedule_1.ScheduleModule
+                schedule_1.ScheduleModule,
+                core_module_js_1.AgmCoreModule.forRoot({
+                    apiKey: 'AIzaSyBz0QP5-bQUjI2VX_C1td3wXAveMrCKv4k'
+                })
             ],
             providers: [
                 events_service_1.EventsService,

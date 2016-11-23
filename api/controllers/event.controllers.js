@@ -56,8 +56,9 @@ var _addEvent = function(req,res,organizer){
 		eventImage : _splitArray(req.body.eventImage),
 		eventPrice : parseInt(req.body.eventPrice, 10),
 		eventLocation : {
-				address : req.body.address,
-				coodrinates : [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+				address : req.body.eventAddress,
+				latitude : parseFloat(req.body.eventLatitude),
+				longitude: parseFloat(req.body.eventLongitude)
 			}
 	});
 	organizer.save(function(err,eventUpdated){

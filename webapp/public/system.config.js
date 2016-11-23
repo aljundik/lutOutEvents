@@ -27,7 +27,8 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       // primeng
-      'primeng': 'npm:primeng'
+      'primeng': 'npm:primeng',
+      'angular2-google-maps': 'https://unpkg.com/angular2-google-maps@0.16.0'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

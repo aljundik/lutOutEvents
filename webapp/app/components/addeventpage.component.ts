@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { EventsService } from '../services/events.service';
-
 import { Event } from '../models/event.class';
 
 @Component({
@@ -39,8 +38,14 @@ import { Event } from '../models/event.class';
           <input [(ngModel)]="newEvent.eventPrice" type="number" class="form-control" id="eventPrice" name="eventPrice">
         </div>
         <div class="form-group">
-          <label for="address">Address</label>
-          <textarea [(ngModel)]="newEvent.address" class="form-control" id="address" name="address"></textarea>
+          <label for="address">Address Details</label>
+          <textarea [(ngModel)]="newEvent.address" class="form-control" id="address" name="address" placeholder="Add Details of the Location"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Drag the pin to the event location</label>
+          <sebm-google-map [latitude]="newEvent.eventLatitude" [longitude]="newEvent.eventLongitude">
+            <sebm-google-map-marker [latitude]="newEvent.eventLatitude" [longitude]="newEvent.eventLongitude" [markerDraggable]="marker.draggable" (dragEnd)="markerDragEnd(m, $event)"></sebm-google-map-marker>
+          </sebm-google-map>
         </div>
         <button (click)="addEvent(newEvent)" type="submit" class="btn btn-default">Add</button>
       </form>
@@ -51,12 +56,33 @@ import { Event } from '../models/event.class';
 })
 export class AddEventComponent {
   showSuccessMessage: boolean;
+  marker = {
+    latitude: 61.064965,
+    longitude: 28.092443,
+    draggable: true
+  }
   newEvent : Event;
   
-  constructor(private eventsService: EventsService) {}
+  constructor(private eventsService: EventsService) {
+    this.newEvent = new Event("","","","","","https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude);
+  }
   
   ngOnInit(){
     this.showSuccessMessage = false;
   }
+  
+  markerDragEnd(m, $event) {
+    console.log('Dragged: ', $event.coords);
+    this.newEvent.eventLatitude = $event.coords.lat;
+    this.newEvent.eventLongitude = $event.coords.long;
+  }
+  
+  // mapClicked($event) {
+  //   this.marker.active = false;
+  //   console.log('Clicked: ', $event.coords);
+  //   this.newEvent.eventLatitude = $event.coords.lat;
+  //   this.newEvent.eventLongitude = $event.coords.long;
+  //   this.marker.active = true;
+  // }
   
 }
