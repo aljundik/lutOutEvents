@@ -19,13 +19,23 @@ var OrganizerService = (function () {
     }
     OrganizerService.prototype.extractData = function (res) {
         var body = res.json();
-        return body.data || {};
+        console.log('body: ', body);
+        return body.data || body || {};
     };
     OrganizerService.prototype.addOrganizer = function (organizer) {
         var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
         var options = new http_2.RequestOptions({ headers: headers });
         var body = JSON.stringify(organizer);
         return this.http.post(this.organizerURL, body, options)
+            .map(this.extractData);
+    };
+    // addEvent(newEvent: Event, organizerId) {
+    //  /api/organizer/"organizerId" /event
+    // }
+    OrganizerService.prototype.getOrganizerById = function (organizerId) {
+        console.log('URL: ' + this.organizerURL + '/' + organizerId);
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+        return this.http.get(this.organizerURL + '/' + organizerId)
             .map(this.extractData);
     };
     OrganizerService = __decorate([

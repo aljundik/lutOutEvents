@@ -14,7 +14,8 @@ export class OrganizerService {
   
   private extractData(res: Response) {
     let body = res.json();
-    return body.data || { };
+    console.log('body: ', body);
+    return body.data || body || { };
   }
 
   addOrganizer(organizer: Organizer) {
@@ -29,5 +30,12 @@ export class OrganizerService {
   // addEvent(newEvent: Event, organizerId) {
   //  /api/organizer/"organizerId" /event
   // }
+  
+  getOrganizerById(organizerId: string) {
+    console.log('URL: ' + this.organizerURL + '/' + organizerId);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.get(this.organizerURL + '/' + organizerId)
+          .map(this.extractData);
+  }
 
 }

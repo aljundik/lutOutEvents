@@ -28,6 +28,11 @@ var StudentService = (function () {
         return this.http.post(this.studentURL, body, options)
             .map(this.extractData);
     };
+    StudentService.prototype.getStudentById = function (studentId) {
+        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+        return this.http.get(this.studentURL + '/' + studentId)
+            .map(this.extractData);
+    };
     StudentService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
