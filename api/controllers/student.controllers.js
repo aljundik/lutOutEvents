@@ -29,6 +29,7 @@ module.exports.studentRegister = function(req,res){
 		});
 };
 
+
 module.exports.studentGetAll = function(req,res){
 
 	var offset = 0;

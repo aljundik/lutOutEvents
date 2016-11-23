@@ -350,6 +350,77 @@ module.exports.sortByRecent = function(req,res){
   console.log("you are at the end of sortByRecent controller");
 };
 
+module.exports.sortByPrice = function(req,res){
+  var organizerId = req.params.organizerId;
+
+  console.log("you are in the event sortByRecent controller");
+
+  Organizer
+ .update(
+   { _id: organizerId },
+   {
+     $push: {
+       events: {
+         $each: [],
+         $sort: { eventPrice: 1 }
+       }
+     }
+   }
+)
+  .exec (function(err,doc){
+    var response = {
+      status : 200,
+      message : []};
+      if (err) {
+        console.log("Error finding organizer");
+        response.status = 500;
+        response.message = err;
+      } else if(!doc) {
+        console.log("organizer id not found in database", id);
+        response.status = 404;
+        response.message = {
+          "message" : "organizer ID not found " + id
+        };
+      } else {
+        response.message = doc ? doc : [];
+        //response.message.sort({"events._id" : -1});
+        console.log("you are at the end of sortByPrice controller");
+      }
+      res
+      .status(response.status)
+      //.json(response.message);
+    });
+  Organizer
+  .findById(organizerId)
+  .select('events')
+ // .sort({"events._id" : -1})
+  .exec (function(err,doc){
+    var response = {
+      status : 200,
+      message : []};
+      if (err) {
+        console.log("Error finding organizer");
+        response.status = 500;
+        response.message = err;
+      } else if(!doc) {
+        console.log("organizer id not found in database", id);
+        response.status = 404;
+        response.message = {
+          "message" : "organizer ID not found " + id
+        };
+      } else {
+        response.message = doc ? doc : [];
+        //response.message.sort({"events._id" : -1});
+        console.log("you are at the end of sortByRecent controller");
+      }
+      res
+      .status(response.status)
+      .json(response.message);
+    });
+  console.log("you are at the end of sortByprice controller");
+
+};
+
 module.exports.listAllEvents = function(req,res){
 
   Organizer

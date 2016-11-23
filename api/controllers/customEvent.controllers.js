@@ -23,6 +23,9 @@ var _addEvent = function(req,res,student){
 	});
 }
 
+
+
+
 module.exports.customEventAddOne = function(req,res){
 
 	var studentId = req.params.studentId;

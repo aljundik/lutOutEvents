@@ -27,6 +27,11 @@ router
 	.route('/organizer/:organizerId/recent')
 	.get(ctrlEvent.sortByRecent);
 
+router 
+	.route('/organizer/:organizerId/price')
+	.get(ctrlEvent.sortByPrice);
+
+
 router
 	.route('/organizer/:organizerId/event/:eventId')
 	.get(ctrlEvent.eventGetOne)
