@@ -15,13 +15,19 @@ var EventListComponent = (function () {
     function EventListComponent(eventsService) {
         this.eventsService = eventsService;
         this.organizerType = 'organizer';
+        this.studentType = 'student';
     }
     EventListComponent.prototype.ngOnInit = function () {
-        this.getEvents();
+        if (this.user.userType === this.organizerType) {
+            this.getEventsByOrganizer(this.user);
+        }
+        else {
+            this.getEvents();
+        }
     };
     EventListComponent.prototype.getEventsByOrganizer = function (user) {
         var _this = this;
-        this.eventsService.getEventsByOrganizer(user.id)
+        this.eventsService.getEventsByOrganizer(user.userId)
             .subscribe(function (data) { return _this.events = data; });
     };
     EventListComponent.prototype.getEvents = function () {
@@ -36,7 +42,7 @@ var EventListComponent = (function () {
     EventListComponent = __decorate([
         core_1.Component({
             selector: 'event-list',
-            template: "\n    <h2 class=\"section-title\">Events</h2>\n    <div *ngIf=\"user.userType === organizerType\" class=\"row\">\n      <button routerLink=\"/event/addEvent/{{user.userId}}\"  class=\"btn btn-default\" type=\"button\">Add New Event</button>\n    </div>\n    <img *ngIf=\"!events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    <div *ngFor=\"let event of events\">\n      <div class=\"col-xs-12 col-lg-6 event-box\">\n        <h3 class=\"col-xs-12 event-box__title\">{{event.name}}</h3>\n        <div class=\"col-xs-12 event-box__info-section\">\n          <div class=\"event-box__info\">\n            <i class=\"fa fa-calendar event-box__info__icon\"></i>\n            <div class=\"text-center event-box__info__data\">{{event.date | date:'yMMMd'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <i class=\"fa fa-clock-o event-box__info__icon\"></i>\n            <div class=\"text-center event-box__info__data\">{{event.date | date:'jms'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <div class=\"fa fa-money event-box__info__icon\"></div>\n            <div class=\"text-center event-box__info__data\">{{event.price | currency:'EUR':true:'1.2-2'}}</div>\n          </div>\n          <div class=\"event-box__info event-box__info--pointer\" [routerLink]=\"['/event', event.id]\">\n            <div class=\"fa fa-eye event-box__info__icon\"></div>\n            <div class=\"text-center event-box__info__data\">See Details</div>\n          </div>\n          <div class=\"event-box__info event-box__info--pointer\">\n            <div class=\"fa fa-calendar-plus-o event-box__info__icon\"></div>\n            <div class=\"event-box__info__data\">Add</div>\n          </div>\n        </div>\n      </div>\n    </div>\n  "
+            template: "\n    <h2 class=\"section-title\">Events</h2>\n    <div *ngIf=\"user.userType === organizerType\" class=\"row\">\n      <button routerLink=\"/event/addEvent/{{user.userId}}\"  class=\"btn btn-default\" type=\"button\">Add New Event</button>\n    </div>\n    <img *ngIf=\"!events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    <div *ngFor=\"let event of events\">\n      <div class=\"col-xs-12 col-lg-6 event-box\">\n        <div *ngIf=\"user.userType === organizerType\" class=\"row\">\n          <h3 class=\"col-xs-10 event-box__title\">{{event.eventTitle}}</h3>\n          <div class=\"col-xs-2\">\n            <div class=\"row\">\n              <div class=\"col-xs-6\"><i class=\"fa fa-times\"></i></div>\n              <div class=\"col-xs-6\"><i class=\"fa fa-pencil\"></i></div>\n            </div>\n          </div>\n        </div>\n        <h3 *ngIf=\"user.userType === studentType\" class=\"col-xs-12 event-box__title\">{{event.eventTitle}}</h3>\n        <div class=\"col-xs-12 event-box__info-section\">\n          <div class=\"event-box__info\">\n            <i class=\"fa fa-calendar event-box__info__icon\"></i>\n            <div class=\"text-center event-box__info__data\">{{event.eventStartDate | date:'yMMMd'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <i class=\"fa fa-clock-o event-box__info__icon\"></i>\n            <div class=\"text-center event-box__info__data\">{{event.eventStartDate | date:'jms'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <div class=\"fa fa-money event-box__info__icon\"></div>\n            <div class=\"text-center event-box__info__data\">{{event.eventPrice | currency:'EUR':true:'1.2-2'}}</div>\n          </div>\n          <div class=\"event-box__info event-box__info--pointer\" [routerLink]=\"['/event', event._id]\">\n            <div class=\"fa fa-eye event-box__info__icon\"></div>\n            <div class=\"text-center event-box__info__data\">See Details</div>\n          </div>\n          <div class=\"event-box__info event-box__info--pointer\">\n            <div class=\"fa fa-calendar-plus-o event-box__info__icon\"></div>\n            <div class=\"event-box__info__data\">Add</div>\n          </div>\n        </div>\n      </div>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [events_service_1.EventsService])
     ], EventListComponent);

@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var http_2 = require('@angular/http');
 require('rxjs/add/operator/map');
 var OrganizerService = (function () {
     function OrganizerService(http) {
@@ -23,8 +22,8 @@ var OrganizerService = (function () {
         return body.data || body || {};
     };
     OrganizerService.prototype.addOrganizer = function (organizer) {
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
-        var options = new http_2.RequestOptions({ headers: headers });
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
         var body = JSON.stringify(organizer);
         return this.http.post(this.organizerURL, body, options)
             .map(this.extractData);
@@ -34,7 +33,7 @@ var OrganizerService = (function () {
     // }
     OrganizerService.prototype.getOrganizerById = function (organizerId) {
         console.log('URL: ' + this.organizerURL + '/' + organizerId);
-        var headers = new http_2.Headers({ 'Content-Type': 'application/json' });
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         return this.http.get(this.organizerURL + '/' + organizerId)
             .map(this.extractData);
     };

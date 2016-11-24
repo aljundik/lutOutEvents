@@ -14,14 +14,27 @@ require('rxjs/add/operator/map');
 var EventsService = (function () {
     function EventsService(http) {
         this.http = http;
+        this.organizerURL = 'api/organizer';
     }
+    EventsService.prototype.extractData = function (res) {
+        var body = res.json();
+        console.log('body: ', body);
+        return body.data || body || {};
+    };
+    EventsService.prototype.addEvent = function (organizerId, event) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        var body = JSON.stringify(event);
+        return this.http.post(this.organizerURL + '/' + organizerId + '/event', body, options)
+            .map(this.extractData);
+    };
     EventsService.prototype.getEvents = function () {
         return this.http.get('dist/mocks/events.json')
             .map(function (response) { return response.json().eventsData; });
     };
     EventsService.prototype.getEventsByOrganizer = function (organizerId) {
-        return this.http.get('/organizer/' + organizerId + '/event')
-            .map(function (response) { return response.json().eventsData; });
+        return this.http.get(this.organizerURL + '/' + organizerId + '/event')
+            .map(function (response) { return response.json(); });
     };
     EventsService = __decorate([
         core_1.Injectable(), 

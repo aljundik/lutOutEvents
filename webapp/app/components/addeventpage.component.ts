@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 
 import { EventsService } from '../services/events.service';
 import { Event } from '../models/event.class';
@@ -8,7 +9,7 @@ import { Event } from '../models/event.class';
     <navigation></navigation>
     <div class="container">
     <h1>Add New Event</h1>
-      <form>
+      <form (ngSubmit)="addEvent(newEvent)">
         <div class="form-group">
           <label for="eventTitle">Event Title</label>
           <input [(ngModel)]="newEvent.eventTitle" type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Name of the new event">
@@ -47,15 +48,19 @@ import { Event } from '../models/event.class';
             <sebm-google-map-marker [latitude]="newEvent.eventLatitude" [longitude]="newEvent.eventLongitude" [markerDraggable]="marker.draggable" (dragEnd)="markerDragEnd(m, $event)"></sebm-google-map-marker>
           </sebm-google-map>
         </div>
-        <button (click)="addEvent(newEvent)" type="submit" class="btn btn-default">Add</button>
+        <button type="submit" class="btn btn-default">Add</button>
+        <p *ngIf="showSuccessMessage" class="col-xs-12 bg-success">Event created successfully!</p>
+        <p *ngIf="showErrorMessage" class="col-xs-12 bg-warning">Error creating event.</p>
       </form>
-      <p *ngIf="showSuccessMessage" class="col-xs-12 bg-success">Organizer '{{organizer.organizerName}}' added successfully!</p>
       </div>
   `
   
 })
 export class AddEventComponent {
   showSuccessMessage: boolean;
+  showErrorMessage: boolean;
+  userId: string;
+  
   marker = {
     latitude: 61.064965,
     longitude: 28.092443,
@@ -63,12 +68,41 @@ export class AddEventComponent {
   }
   newEvent : Event;
   
-  constructor(private eventsService: EventsService) {
+  constructor(private eventsService: EventsService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.newEvent = new Event("","","","","","https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude);
   }
   
   ngOnInit(){
     this.showSuccessMessage = false;
+    this.showErrorMessage = false;
+    this.route.params.forEach((params: Params) => {
+         this.userId = params['id'];
+       });
+  }
+  
+  addEvent(newEvent: Event) {
+    this.eventsService.addEvent(this.userId, newEvent)
+      .subscribe(user => this.addEventSuccess(user), err=> this.addEventError(err));
+  }
+  
+  addEventSuccess(user) {
+    console.log('Success!!', user);
+    this.showSuccessMessage = true;
+    
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3500);
+  }
+  
+  addEventError(err) {
+    console.log('Error!!', err);
+    this.showErrorMessage = true;
+    
+    setTimeout(() => {
+      this.showErrorMessage = false;
+    }, 3500);
   }
   
   markerDragEnd(m, $event) {

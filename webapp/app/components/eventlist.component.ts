@@ -16,21 +16,30 @@ import { Organizer } from '../models/organizer.class';
     <img *ngIf="!events" class="center-block" src="./dist/img/loading-medium.gif">
     <div *ngFor="let event of events">
       <div class="col-xs-12 col-lg-6 event-box">
-        <h3 class="col-xs-12 event-box__title">{{event.name}}</h3>
+        <div *ngIf="user.userType === organizerType" class="row">
+          <h3 class="col-xs-10 event-box__title">{{event.eventTitle}}</h3>
+          <div class="col-xs-2">
+            <div class="row">
+              <div class="col-xs-6"><i class="fa fa-times"></i></div>
+              <div class="col-xs-6"><i class="fa fa-pencil"></i></div>
+            </div>
+          </div>
+        </div>
+        <h3 *ngIf="user.userType === studentType" class="col-xs-12 event-box__title">{{event.eventTitle}}</h3>
         <div class="col-xs-12 event-box__info-section">
           <div class="event-box__info">
             <i class="fa fa-calendar event-box__info__icon"></i>
-            <div class="text-center event-box__info__data">{{event.date | date:'yMMMd'}}</div>
+            <div class="text-center event-box__info__data">{{event.eventStartDate | date:'yMMMd'}}</div>
           </div>
           <div class="event-box__info">
             <i class="fa fa-clock-o event-box__info__icon"></i>
-            <div class="text-center event-box__info__data">{{event.date | date:'jms'}}</div>
+            <div class="text-center event-box__info__data">{{event.eventStartDate | date:'jms'}}</div>
           </div>
           <div class="event-box__info">
             <div class="fa fa-money event-box__info__icon"></div>
-            <div class="text-center event-box__info__data">{{event.price | currency:'EUR':true:'1.2-2'}}</div>
+            <div class="text-center event-box__info__data">{{event.eventPrice | currency:'EUR':true:'1.2-2'}}</div>
           </div>
-          <div class="event-box__info event-box__info--pointer" [routerLink]="['/event', event.id]">
+          <div class="event-box__info event-box__info--pointer" [routerLink]="['/event', event._id]">
             <div class="fa fa-eye event-box__info__icon"></div>
             <div class="text-center event-box__info__data">See Details</div>
           </div>
@@ -47,15 +56,22 @@ export class EventListComponent{
   @Input() user: User;
   events: Event[];
   organizerType = 'organizer';
+  studentType = 'student';
   
   constructor(private eventsService: EventsService) { }
 
   ngOnInit() {
-    this.getEvents();
+    if (this.user.userType === this.organizerType){
+      this.getEventsByOrganizer(this.user);  
+    } else{
+      this.getEvents();  
+    }
+    
+    
   }
   
-  getEventsByOrganizer(user) {
-    this.eventsService.getEventsByOrganizer(user.id)
+  getEventsByOrganizer(user: User) {
+    this.eventsService.getEventsByOrganizer(user.userId)
         .subscribe(data => this.events = data);
   }
   
