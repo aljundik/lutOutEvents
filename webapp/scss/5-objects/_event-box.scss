@@ -2,41 +2,53 @@
 @import "../2-tools/utils.scss";
 
 @include block('event-box'){
-    border: 1px solid #ddd;
-    border-radius: 4px 4px 4px 4px;
+    border: 1px solid $intense-red;
     padding: 8px 0;
-    margin-bottom: 25px;
     background-color: $white;
+    margin-bottom: 10px;
     @include transition(background-color 0.5s ease);
-    @include transition(border-color 0.5s ease);
     
     &:hover{
-        border-color: $dark-purple;
-        background-color: $super-light-purple;
+        background-color: $red;
     }
     @include element('title'){
         margin-top: 0;
         text-align: center;
-        color: $dark-gray;
+        color: $text-gray;
+    }
+    @include element('control'){
+        cursor: pointer;
+        font-size: 25px;
+        &:hover {
+            color: white;
+        }
     }
     @include element('info'){
         width: 20%;
         float: left;
         cursor:pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         @include modifier('pointer'){
             cursor: pointer;
             @include transition(color 0.2s ease);
             &:hover{
-                color: $dark-purple;
+                color: white;
             }
         }
         @include element('icon'){
             font-size: 34px;
             width: 100%;
             text-align: center;
+            color: $intense-red;
+            &:hover{
+                color: white;
+            }
         }
         @include element('data'){
             text-align: center;
+            color: $text-gray;
         }
     }
 }

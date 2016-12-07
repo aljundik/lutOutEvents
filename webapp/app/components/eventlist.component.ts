@@ -15,37 +15,34 @@ import { Organizer } from '../models/organizer.class';
     </div>
     <img *ngIf="!events" class="center-block" src="./dist/img/loading-medium.gif">
     <div *ngFor="let event of events">
-      <div class="col-xs-12 col-lg-6 event-box">
-        <div *ngIf="user.userType === organizerType" class="row">
-          <h3 class="col-xs-10 event-box__title">{{event.eventTitle}}</h3>
-          <div class="col-xs-2">
-            <div class="row">
-              <div class="col-xs-6"><i (click)="deleteEvent(event)" class="fa fa-trash-o"></i></div>
-              <div class="col-xs-6"><i routerLink="/event/addEvent/{{user.userId}}/event/{{event._id}}" class="fa fa-pencil"></i></div>
-            </div>
-          </div>
-        </div>
-        <h3 *ngIf="user.userType === studentType" class="col-xs-12 event-box__title">{{event.eventTitle}}</h3>
+      <div class="col-xs-12 col-md-8 col-md-push-2 event-box">
+        <h3 class="col-xs-12 event-box__title">{{event.eventTitle}}</h3>
         <div class="col-xs-12 event-box__info-section">
           <div class="event-box__info">
-            <i class="fa fa-calendar event-box__info__icon"></i>
+            <img src="./dist/img/calendar.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">{{event.eventStartDate | date:'yMMMd'}}</div>
           </div>
           <div class="event-box__info">
-            <i class="fa fa-clock-o event-box__info__icon"></i>
+            <img src="./dist/img/alarm-clock.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">{{event.eventStartDate | date:'jms'}}</div>
           </div>
           <div class="event-box__info">
-            <div class="fa fa-money event-box__info__icon"></div>
+            <img src="./dist/img/money.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">{{event.eventPrice | currency:'EUR':true:'1.2-2'}}</div>
           </div>
           <div class="event-box__info event-box__info--pointer" [routerLink]="['/event', event._id]">
-            <div class="fa fa-eye event-box__info__icon"></div>
+            <img src="./dist/img/loupe.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">See Details</div>
           </div>
-          <div class="event-box__info event-box__info--pointer">
-            <div class="fa fa-calendar-plus-o event-box__info__icon"></div>
+          <div *ngIf="user.userType === studentType" class="event-box__info event-box__info--pointer">
+            <div class="fa fa-heart-o event-box__info__icon"></div>
             <div class="event-box__info__data">Add</div>
+          </div>
+          <div *ngIf="user.userType === organizerType" class="event-box__info event-box__info--pointer">
+            <div class="row">
+              <div class="col-xs-6 event-box__control"><i (click)="deleteEvent(event)" class="fa fa-trash-o"></i></div>
+              <div class="col-xs-6 event-box__control"><i routerLink="/event/addEvent/{{user.userId}}/event/{{event._id}}" class="fa fa-pencil"></i></div>
+            </div>
           </div>
         </div>
       </div>
