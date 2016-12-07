@@ -407,3 +407,14 @@
 	}
 	align-content: $value;
 }
+
+// MEDIA QUERIES
+
+@mixin bp($point) {
+  @if $point == big {
+    @media (min-width: 1250px) { @content; }
+  }
+  @else if $point == medium {
+    @media (min-width: 768px)  { @content; }
+  }
+}

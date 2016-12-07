@@ -14,7 +14,7 @@ var WelcomeComponent = (function () {
     }
     WelcomeComponent = __decorate([
         core_1.Component({
-            template: "\n    <div class=\"container\">\n      <h1>WELCOME</h1>\n      <div class=\"calendar-background\"></div>\n      <login></login>\n      <about></about>\n    </div>\n  "
+            template: "\n    <div class=\"container\">\n      <h1 class=\"main-title\">LUT_OUT</h1>\n      <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-8\"><img class=\"main-logo\" src=\"./dist/img/logo.png\" alt=\"lut_out logo\"></div>\n        <login></login>\n      </div>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], WelcomeComponent);

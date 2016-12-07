@@ -1,0 +1,18 @@
+@import "../2-tools/bemify.scss";
+@import "../2-tools/utils.scss";
+
+@include block('lut-button') {
+    border: none;
+    border-radius: 0;
+    padding: 15px;
+    
+    @include element('red') {
+        background-color: $red;
+        color: $text-gray;
+    }
+    
+    @include element('gray') {
+        background-color: $gray;
+        color: #fff;
+    }
+}

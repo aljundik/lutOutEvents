@@ -1,0 +1,16 @@
+@import "../2-tools/bemify.scss";
+@import "../2-tools/utils.scss";
+
+@include block('main-logo') {
+    margin: 45px auto;
+    display: block;
+    width: 96px;
+    height: 93px;
+}
+
+@include bp (medium) {
+    @include block('main-logo') {
+        width: 193px;
+        height: 187px;
+    }
+}

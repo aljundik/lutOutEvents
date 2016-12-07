@@ -1,0 +1,7 @@
+@import "../2-tools/bemify.scss";
+@import "../2-tools/utils.scss";
+
+@include block('form-control') {
+    border: none;
+    border-radius: 0;
+}

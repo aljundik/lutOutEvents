@@ -11,22 +11,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var user_class_1 = require('../models/user.class');
+var calendarevent_class_1 = require('../models/calendarevent.class');
 var student_service_1 = require('../services/student.service');
+var events_service_1 = require('../services/events.service');
 var organizer_service_1 = require('../services/organizer.service');
 var EventsComponent = (function () {
-    function EventsComponent(studentService, organizerService, route, router) {
+    function EventsComponent(studentService, organizerService, eventsService, route, router) {
         this.studentService = studentService;
         this.organizerService = organizerService;
+        this.eventsService = eventsService;
         this.route = route;
         this.router = router;
+        this.organizerType = 'organizer';
+        this.studentType = 'student';
     }
     EventsComponent.prototype.mapStudentInfo = function (student) {
-        console.log('mapping student data', student);
         this.user = new user_class_1.User(student._id, student.studentName, student.studentEmail, student.studentUserName, "", "student");
+        this.getAllEvents();
+        //this.getScheduledEvents(); 
     };
     EventsComponent.prototype.mapOrganizerInfo = function (organizer) {
-        console.log('mapping organizer data', organizer);
         this.user = new user_class_1.User(organizer._id, organizer.organizerName, organizer.organizerEmail, organizer.organizerUserName, "", "organizer");
+        this.getEventsByOrganizer(this.user);
     };
     EventsComponent.prototype.getUserInfo = function (userId) {
         var _this = this;
@@ -35,6 +41,29 @@ var EventsComponent = (function () {
             return _this.organizerService.getOrganizerById(userId)
                 .subscribe(function (data) { return _this.mapOrganizerInfo(data); });
         });
+    };
+    EventsComponent.prototype.mapOrganizerEventsData = function (data) {
+        console.log('Map organizer events: ', data);
+        this.events = data;
+        for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+            var event_1 = data_1[_i];
+            if (this.calendarEvents) {
+                this.calendarEvents.push(new calendarevent_class_1.CalendarEvent(event_1.eventTitle, event_1.eventStartDate, event_1.eventEndDate));
+            }
+            else {
+                this.calendarEvents = [(new calendarevent_class_1.CalendarEvent(event_1.eventTitle, event_1.eventStartDate, event_1.eventEndDate))];
+            }
+        }
+    };
+    EventsComponent.prototype.getEventsByOrganizer = function (user) {
+        var _this = this;
+        this.eventsService.getEventsByOrganizer(user.userId)
+            .subscribe(function (data) { return _this.mapOrganizerEventsData(data); });
+    };
+    EventsComponent.prototype.getAllEvents = function () {
+        var _this = this;
+        this.eventsService.getAllEvents()
+            .subscribe(function (data) { return _this.mapOrganizerEventsData(data); });
     };
     EventsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -45,9 +74,9 @@ var EventsComponent = (function () {
     };
     EventsComponent = __decorate([
         core_1.Component({
-            template: "\n    <navigation></navigation>\n    <div class=\"container\">\n      <h2>My LUT Calendar</h2>\n      <p-schedule [events]=\"events\"></p-schedule>\n      <event-list *ngIf=\"user\" [user]=\"user\"></event-list>\n      <img *ngIf=\"!user\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    </div>\n  "
+            template: "\n    <navigation></navigation>\n    <div class=\"container\">\n      <h2>My LUT Calendar</h2>\n      <p-schedule *ngIf=\"calendarEvents\" [events]=\"calendarEvents\"></p-schedule>\n      <event-list *ngIf=\"user && events\" [user]=\"user\" [events]=\"events\"></event-list>\n      <img *ngIf=\"!user || !events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    </div>\n  "
         }), 
-        __metadata('design:paramtypes', [student_service_1.StudentService, organizer_service_1.OrganizerService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [student_service_1.StudentService, organizer_service_1.OrganizerService, events_service_1.EventsService, router_1.ActivatedRoute, router_1.Router])
     ], EventsComponent);
     return EventsComponent;
 }());

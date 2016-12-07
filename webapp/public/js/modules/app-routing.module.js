@@ -27,6 +27,7 @@ var AppRoutingModule = (function () {
                     { path: 'events/:id', component: events_component_1.EventsComponent },
                     { path: 'event/:id', component: eventdetailpage_component_1.EventDetailPageComponent },
                     { path: 'event/addEvent/:id', component: addeventpage_component_1.AddEventComponent },
+                    { path: 'event/addEvent/:id/event/:eventId', component: addeventpage_component_1.AddEventComponent },
                     { path: 'addOrganizer', component: organizer_component_1.OrganizerComponent },
                     { path: '**', component: pagenotfound_component_1.PageNotFoundComponent }
                 ])

@@ -196,9 +196,10 @@ module.exports.eventUpdateOne = function(req,res){
         thisEvent.eventStartDate = _splitArray(req.body.eventStartDate);
         thisEvent.eventImage = req.body.eventImage;
         thisEvent.eventLocation = {
-				address : req.body.address,
-				coodrinates : [parseFloat(req.body.lng), parseFloat(req.body.lat)]
-			}
+  				address : req.body.eventAddress,
+  				latitude : parseFloat(req.body.eventLatitude),
+  				longitude: parseFloat(req.body.eventLongitude)
+  			};
 
 
   //       eventTitle : req.body.eventTitle,

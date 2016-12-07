@@ -1,5 +1,11 @@
 @import "../2-tools/bemify.scss";
 @import "../2-tools/utils.scss";
+h1 {
+    color: $text-gray;
+    font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
 
 h2 {
     color: $dark-purple;

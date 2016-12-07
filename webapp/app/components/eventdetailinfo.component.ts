@@ -63,7 +63,7 @@ export class EventDetailInfoComponent implements OnInit {
     //     let selectedId= params['id'];
     //     console.log(selectedId);
     //   });
-    this.eventsService.getEvents()
+    this.eventsService.getAllEvents()
           .subscribe(data => this.event = data[0]);
     
   }

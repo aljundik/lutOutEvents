@@ -2,11 +2,14 @@
 
 @include block('login-box'){
     position: relative;
+    background-color: $light-gray;
+    padding: 10px;
     @include element('nav'){
         margin: 10px;
     }
     @include element('field'){
-        margin: 2px 0;
+        margin: 9px 0;
+        height: 45px;
     }
     @include element('button'){
         margin: 10px 0;

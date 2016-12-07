@@ -23,7 +23,7 @@ var EventDetailInfoComponent = (function () {
         //     let selectedId= params['id'];
         //     console.log(selectedId);
         //   });
-        this.eventsService.getEvents()
+        this.eventsService.getAllEvents()
             .subscribe(function (data) { return _this.event = data[0]; });
     };
     EventDetailInfoComponent = __decorate([

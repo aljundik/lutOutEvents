@@ -1,5 +1,7 @@
 export class Event {
+	
   constructor(
+  		public _id : string,
 		public eventTitle : string,
 		public eventDescription : string,
 		public eventURL : string,

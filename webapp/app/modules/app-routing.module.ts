@@ -15,6 +15,7 @@ import { PageNotFoundComponent } from '../components/pagenotfound.component';
         { path: 'events/:id', component: EventsComponent },
         { path: 'event/:id', component: EventDetailPageComponent },
         { path: 'event/addEvent/:id', component: AddEventComponent },
+        { path: 'event/addEvent/:id/event/:eventId', component: AddEventComponent },
         { path: 'addOrganizer', component: OrganizerComponent },
         { path: '**', component: PageNotFoundComponent }
     ])

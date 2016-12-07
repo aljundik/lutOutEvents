@@ -8,8 +8,10 @@ import { Event } from '../models/event.class';
   template: `
     <navigation></navigation>
     <div class="container">
-    <h1>Add New Event</h1>
-      <form (ngSubmit)="addEvent(newEvent)">
+    <h1 *ngIf="!editMode">Add New Event</h1>
+    <h1 *ngIf="editMode">Edit Event</h1>
+      <img *ngIf="!newEvent" class="center-block" src="./dist/img/loading-medium.gif">
+      <form *ngIf="newEvent" (ngSubmit)="addEvent(newEvent)">
         <div class="form-group">
           <label for="eventTitle">Event Title</label>
           <input [(ngModel)]="newEvent.eventTitle" type="text" class="form-control" id="eventTitle" name="eventTitle" placeholder="Name of the new event">
@@ -40,7 +42,7 @@ import { Event } from '../models/event.class';
         </div>
         <div class="form-group">
           <label for="address">Address Details</label>
-          <textarea [(ngModel)]="newEvent.address" class="form-control" id="address" name="address" placeholder="Add Details of the Location"></textarea>
+          <textarea [(ngModel)]="newEvent.eventAddress" class="form-control" id="address" name="address" placeholder="Add Details of the Location"></textarea>
         </div>
         <div class="form-group">
           <label>Drag the pin to the event location</label>
@@ -59,7 +61,9 @@ import { Event } from '../models/event.class';
 export class AddEventComponent {
   showSuccessMessage: boolean;
   showErrorMessage: boolean;
+  editMode: boolean;
   userId: string;
+  eventId: string;
   
   marker = {
     latitude: 61.064965,
@@ -71,7 +75,6 @@ export class AddEventComponent {
   constructor(private eventsService: EventsService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.newEvent = new Event("","","","","","https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude);
   }
   
   ngOnInit(){
@@ -79,16 +82,51 @@ export class AddEventComponent {
     this.showErrorMessage = false;
     this.route.params.forEach((params: Params) => {
          this.userId = params['id'];
+         
+         if (params['eventId']) {
+           this.editMode = true;
+           this.eventId = params['eventId'];
+         } else {
+           this.editMode = false;
+         }
        });
+    
+    console.log('editMode: ', this.editMode);
+    
+    if (this.editMode) {
+      this.eventsService.getEvent(this.userId, this.eventId)
+        .subscribe(data => this.fillEeventData(data));
+    }
+    else{
+      this.newEvent = new Event("","","","","","","https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude); 
+    }
+  }
+  
+  fillEeventData(data) {
+    this.newEvent = data;
+    this.newEvent.eventAddress = data.eventLocation.address;
+    this.newEvent.eventLatitude = data.eventLocation.latitude;
+    this.newEvent.eventLongitude = data.eventLocation.longitude;
+    
+    console.log('Event: ', this.newEvent);
   }
   
   addEvent(newEvent: Event) {
-    this.eventsService.addEvent(this.userId, newEvent)
-      .subscribe(user => this.addEventSuccess(user), err=> this.addEventError(err));
+    if (this.editMode) {
+      this.editEvent(newEvent)
+    } else {
+      this.eventsService.addEvent(this.userId, newEvent)
+        .subscribe(user => this.addEventSuccess(user), err=> this.addEventError(err));  
+    }
+  }
+  
+  editEvent(event: Event) {
+    console.log('Event: ', this.newEvent);
+    this.eventsService.editEvent(this.userId, event)
+        .subscribe(user => this.addEventSuccess(user), err=> this.addEventError(err)); 
   }
   
   addEventSuccess(user) {
-    console.log('Success!!', user);
     this.showSuccessMessage = true;
     
     setTimeout(() => {
@@ -108,7 +146,7 @@ export class AddEventComponent {
   markerDragEnd(m, $event) {
     console.log('Dragged: ', $event.coords);
     this.newEvent.eventLatitude = $event.coords.lat;
-    this.newEvent.eventLongitude = $event.coords.long;
+    this.newEvent.eventLongitude = $event.coords.lng;
   }
   
   // mapClicked($event) {

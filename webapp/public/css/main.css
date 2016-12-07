@@ -2770,6 +2770,12 @@ textarea {
   overflow: visible;
   clip: auto; }
 
+h1 {
+  color: #333333;
+  font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+  font-size: 15px;
+  text-align: center; }
+
 h2 {
   color: #800080; }
 
@@ -2815,11 +2821,14 @@ h2 {
   background-repeat: no-repeat; }
 
 .login-box {
-  position: relative; }
+  position: relative;
+  background-color: #eeeeee;
+  padding: 10px; }
   .login-box__nav {
     margin: 10px; }
   .login-box__field {
-    margin: 2px 0; }
+    margin: 9px 0;
+    height: 45px; }
   .login-box__button {
     margin: 10px 0; }
 
@@ -2868,6 +2877,36 @@ h2 {
 
 .sebm-google-map-container {
   height: 300px; }
+
+.main-logo {
+  margin: 45px auto;
+  display: block;
+  width: 96px;
+  height: 93px; }
+
+@media (min-width: 768px) {
+  .main-logo {
+    width: 193px;
+    height: 187px; } }
+
+.lut-button {
+  border: none;
+  border-radius: 0;
+  padding: 15px; }
+  .lut-button__red {
+    background-color: #da5555;
+    color: #333333; }
+  .lut-button__gray {
+    background-color: #8f8b8b;
+    color: #fff; }
+
+.lut-link {
+  color: #9e271f;
+  text-align: center; }
+
+.form-control {
+  border: none;
+  border-radius: 0; }
 
 /* ==========================================================================
    Vendor

@@ -72,10 +72,8 @@ var eventSchema = new mongoose.Schema({
 	},
 	eventLocation : {
 		address: String,
-		coordinates : {
-			type: [Number],
-			index : '2dsphere'// index so we can so search
-		} // always tore coodinates long/lat order 
+		latitude: Number,
+		longitude: Number
 	},
 	eventURL: {
 		type : String
