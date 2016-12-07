@@ -17,8 +17,19 @@ export class EventsService {
 
   constructor(private http: Http) { }
   
+  sortByDate (a, b) {
+    a = new Date(a.eventStartDate);
+    b = new Date(b.eventStartDate);
+    return a<b ? -1 : a>b ? 1 : 0;
+  }
+  
+  sortByPrice (a, b) {
+    a = parseFloat(a.eventPrice);
+    b = parseFloat(b.eventPrice);
+    return a<b ? -1 : a>b ? 1 : 0;
+  }
+  
   deleteEvent(organizerId:string, event: Event){
-    console.log('eventId: ', event._id);
     return this.http.delete(this.organizerURL+'/'+ organizerId + '/event/' + event._id);
   }
   
@@ -56,12 +67,13 @@ export class EventsService {
         allEvents.push(event);
       }
     }
-    return allEvents;
+    console.log('sorting.. ', allEvents.sort(this.sortByDate));
+    return allEvents.sort(this.sortByDate);
   }
   
   getEventsByOrganizer(organizerId: string) {
     return this.http.get(this.organizerURL+'/'+ organizerId +'/event')
-          .map(response => <Event[]>response.json() as Event[]);
+          .map(response => <Event[]>response.json().sort(this.sortByDate) as Event[]);
   }
 
 }

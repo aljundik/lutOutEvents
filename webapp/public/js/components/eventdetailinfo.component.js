@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var events_service_1 = require('../services/events.service');
+var event_class_1 = require('../models/event.class');
 var EventDetailInfoComponent = (function () {
     function EventDetailInfoComponent(eventsService, route, router) {
         this.eventsService = eventsService;
@@ -26,6 +27,10 @@ var EventDetailInfoComponent = (function () {
         this.eventsService.getAllEvents()
             .subscribe(function (data) { return _this.event = data[0]; });
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', event_class_1.Event)
+    ], EventDetailInfoComponent.prototype, "event", void 0);
     EventDetailInfoComponent = __decorate([
         core_1.Component({
             selector: 'event-detail-info',

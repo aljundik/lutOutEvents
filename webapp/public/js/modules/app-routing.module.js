@@ -25,7 +25,7 @@ var AppRoutingModule = (function () {
                 router_1.RouterModule.forRoot([
                     { path: '', component: welcome_component_1.WelcomeComponent },
                     { path: 'events/:id', component: events_component_1.EventsComponent },
-                    { path: 'event/:id', component: eventdetailpage_component_1.EventDetailPageComponent },
+                    { path: 'organizer/:id/event/:eventId', component: eventdetailpage_component_1.EventDetailPageComponent },
                     { path: 'event/addEvent/:id', component: addeventpage_component_1.AddEventComponent },
                     { path: 'event/addEvent/:id/event/:eventId', component: addeventpage_component_1.AddEventComponent },
                     { path: 'addOrganizer', component: organizer_component_1.OrganizerComponent },

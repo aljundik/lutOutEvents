@@ -13,7 +13,7 @@ import { PageNotFoundComponent } from '../components/pagenotfound.component';
     RouterModule.forRoot([
         { path: '', component: WelcomeComponent },
         { path: 'events/:id', component: EventsComponent },
-        { path: 'event/:id', component: EventDetailPageComponent },
+        { path: 'organizer/:id/event/:eventId', component: EventDetailPageComponent },
         { path: 'event/addEvent/:id', component: AddEventComponent },
         { path: 'event/addEvent/:id/event/:eventId', component: AddEventComponent },
         { path: 'addOrganizer', component: OrganizerComponent },

@@ -21,8 +21,17 @@ var EventsService = (function () {
         var body = res.json();
         return body.data || body || {};
     };
+    EventsService.prototype.sortByDate = function (a, b) {
+        a = new Date(a.eventStartDate);
+        b = new Date(b.eventStartDate);
+        return a < b ? -1 : a > b ? 1 : 0;
+    };
+    EventsService.prototype.sortByPrice = function (a, b) {
+        a = parseFloat(a.eventPrice);
+        b = parseFloat(b.eventPrice);
+        return a < b ? -1 : a > b ? 1 : 0;
+    };
     EventsService.prototype.deleteEvent = function (organizerId, event) {
-        console.log('eventId: ', event._id);
         return this.http.delete(this.organizerURL + '/' + organizerId + '/event/' + event._id);
     };
     EventsService.prototype.addEvent = function (organizerId, event) {
@@ -56,11 +65,13 @@ var EventsService = (function () {
                 allEvents.push(event_1);
             }
         }
-        return allEvents;
+        console.log('sorting.. ', allEvents.sort(this.sortByDate));
+        return allEvents.sort(this.sortByDate);
     };
     EventsService.prototype.getEventsByOrganizer = function (organizerId) {
+        var _this = this;
         return this.http.get(this.organizerURL + '/' + organizerId + '/event')
-            .map(function (response) { return response.json(); });
+            .map(function (response) { return response.json().sort(_this.sortByDate); });
     };
     EventsService = __decorate([
         core_1.Injectable(), 

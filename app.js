@@ -39,7 +39,10 @@
 	app.get('/event*', function(req, res) {
 	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
 	});
-	app.get('/addOrganizer', function(req, res) {
+	app.get('/events', function(req, res) {
+	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
+	});
+	app.get('/organizer*', function(req, res) {
 	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
 	});
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Pipe } from '@angular/core';
 
 import { EventsService } from '../services/events.service';
 import { Event } from '../models/event.class';
@@ -30,7 +30,7 @@ import { Organizer } from '../models/organizer.class';
             <img src="./dist/img/money.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">{{event.eventPrice | currency:'EUR':true:'1.2-2'}}</div>
           </div>
-          <div class="event-box__info event-box__info--pointer" [routerLink]="['/event', event._id]">
+          <div class="event-box__info event-box__info--pointer" [routerLink]="['/organizer', user.userId,'event', event._id]">
             <img src="./dist/img/loupe.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">See Details</div>
           </div>
@@ -59,6 +59,7 @@ export class EventListComponent{
   constructor(private eventsService: EventsService) { }
 
   ngOnInit() {
+    console.log('This is user: ', this.user);
   }
   
   deleteEvent(event: Event){
@@ -67,7 +68,6 @@ export class EventListComponent{
   }
   
   sucessDelete(data: any, event:Event){
-    console.log(data);
     let index = this.events.indexOf(event);
     this.events.splice(index, 1);
   }

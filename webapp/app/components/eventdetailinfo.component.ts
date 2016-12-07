@@ -52,7 +52,7 @@ import { Event } from '../models/event.class';
   `
 })
 export class EventDetailInfoComponent implements OnInit {
-  event: Event;
+  @Input() event: Event;
   
   constructor(private eventsService: EventsService,
               private route: ActivatedRoute,
