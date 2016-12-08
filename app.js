@@ -45,6 +45,9 @@
 	app.get('/organizer*', function(req, res) {
 	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
 	});
+	app.get('/addOrganizer', function(req, res) {
+	    res.sendFile(path.join(__dirname + '/webapp/public/index.html'));
+	});
 
 
 	var server = app.listen(process.env.PORT, process.env.IP, 511, function(){
