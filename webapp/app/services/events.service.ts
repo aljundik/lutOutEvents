@@ -10,6 +10,9 @@ export class EventsService {
   private organizerURL = 'api/organizer';
   private eventsURL = 'api/events';
   
+    private newOrganizerURL = 'api/newOrganizer';
+  private newEventURL = 'api/newEvent';
+  
   private extractData(res: Response) {
     let body = res.json();
     return body.data || body || { };
@@ -29,8 +32,8 @@ export class EventsService {
     return a<b ? -1 : a>b ? 1 : 0;
   }
   
-  deleteEvent(organizerId:string, event: Event){
-    return this.http.delete(this.organizerURL+'/'+ organizerId + '/event/' + event._id);
+  deleteEvent(event: Event){
+    return this.http.delete(this.newEventURL + '/' + event._id);
   }
   
   addEvent(organizerId:string, event: Event) {
@@ -38,42 +41,31 @@ export class EventsService {
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(event);
     
-    return this.http.post(this.organizerURL + '/' + organizerId + '/event', body, options)
+    return this.http.post(this.newEventURL, body, options)
           .map(this.extractData);
   }
   
-  getEvent(organizerId: string, eventId: string){
-    return this.http.get(this.organizerURL + '/'+ organizerId +'/event/' + eventId)
+  getEvent(eventId: string){
+    return this.http.get(this.newEventURL + '/'+ eventId)
           .map(response => <Event> response.json() as Event);
   }
   
-  editEvent(organizerId: string, event: Event) {
+  editEvent(event: Event) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(event);
     
-    return this.http.put(this.organizerURL + '/' + organizerId + '/event/' + event._id, body, options);
+    return this.http.put(this.newEventURL + '/' + event._id, body, options);
   }
 
   getAllEvents() {
-    return this.http.get(this.eventsURL)
-          .map(response => <Event[]>this.formatEvents(response) as Event[]);
-  }
-  
-  formatEvents(response:any) {
-    let allEvents = [];
-    for (let eventsObject of JSON.parse(response._body)) {
-      for (let event of eventsObject.events) {
-        allEvents.push(event);
-      }
-    }
-    console.log('sorting.. ', allEvents.sort(this.sortByDate));
-    return allEvents.sort(this.sortByDate);
+    return this.http.get(this.newEventURL)
+          .map(response => <Event[]>response.json() as Event[]);
   }
   
   getEventsByOrganizer(organizerId: string) {
-    return this.http.get(this.organizerURL+'/'+ organizerId +'/event')
-          .map(response => <Event[]>response.json().sort(this.sortByDate) as Event[]);
+    return this.http.get(this.newEventURL+'/organizer/'+ organizerId)
+          .map(response => <Event[]>response.json() as Event[]);
   }
 
 }

@@ -45,66 +45,66 @@ var _splitArray = function (input) {
 	return output;
 };
 
-var _addEvent = function(req,res,organizer){
+// var _addEvent = function(req,res,organizer){
 
-	// add review array to hotel 
-	organizer.events.push({
-		eventTitle : req.body.eventTitle,
-		eventDescription : req.body.eventDescription,
-		eventURL : req.body.eventURL,
-		eventStartDate : req.body.eventStartDate,
-		eventEndDate : req.body.eventEndDate,
-		eventImage : _splitArray(req.body.eventImage),
-		eventPrice : parseInt(req.body.eventPrice, 10),
-		eventLocation : {
-				address : req.body.eventAddress,
-				latitude : parseFloat(req.body.eventLatitude),
-				longitude: parseFloat(req.body.eventLongitude)
-			}
-	});
-	organizer.save(function(err,eventUpdated){
-		if(err){
-			res
-				.status(500)
-				.json(err);
-		} else {
-			res
-				.status(201)
-				.json(eventUpdated.events[eventUpdated.events.length -1]);
-		}
-	});
-}
+// 	// add review array to hotel 
+// 	organizer.events.push({
+// 		eventTitle : req.body.eventTitle,
+// 		eventDescription : req.body.eventDescription,
+// 		eventURL : req.body.eventURL,
+// 		eventStartDate : req.body.eventStartDate,
+// 		eventEndDate : req.body.eventEndDate,
+// 		eventImage : _splitArray(req.body.eventImage),
+// 		eventPrice : parseInt(req.body.eventPrice, 10),
+// 		eventLocation : {
+// 				address : req.body.eventAddress,
+// 				latitude : parseFloat(req.body.eventLatitude),
+// 				longitude: parseFloat(req.body.eventLongitude)
+// 			}
+// 	});
+// 	organizer.save(function(err,eventUpdated){
+// 		if(err){
+// 			res
+// 				.status(500)
+// 				.json(err);
+// 		} else {
+// 			res
+// 				.status(201)
+// 				.json(eventUpdated.events[eventUpdated.events.length -1]);
+// 		}
+// 	});
+// }
 
-module.exports.eventAddOne = function(req,res){
-	var organizerId = req.params.organizerId;
-	Organizer
-	.findById(organizerId)
-	.select('events')
-	.exec (function(err,doc){
-		var response = {
-			status : 200,
-			message : []};
-			if (err) {
-				console.log("Error finding Organizer");
-				response.status = 500;
-				response.message = err;
-			} else if(!doc) {
-				console.log("Organizer id not found in database", id);
-				response.status = 404;
-				response.message = {
-					"message" : "Organizer ID not found " + id
-				};
-			} 
-			if (doc){
-				_addEvent(req,res,doc);
-			} else {
-				res
-				.status(response.status)
-				.json(response.message);
-			}
-		});
+// module.exports.eventAddOne = function(req,res){
+// 	var organizerId = req.params.organizerId;
+// 	Organizer
+// 	.findById(organizerId)
+// 	.select('events')
+// 	.exec (function(err,doc){
+// 		var response = {
+// 			status : 200,
+// 			message : []};
+// 			if (err) {
+// 				console.log("Error finding Organizer");
+// 				response.status = 500;
+// 				response.message = err;
+// 			} else if(!doc) {
+// 				console.log("Organizer id not found in database", id);
+// 				response.status = 404;
+// 				response.message = {
+// 					"message" : "Organizer ID not found " + id
+// 				};
+// 			} 
+// 			if (doc){
+// 				_addEvent(req,res,doc);
+// 			} else {
+// 				res
+// 				.status(response.status)
+// 				.json(response.message);
+// 			}
+// 		});
 
-};
+// };
 
 module.exports.eventGetOne = function(req,res){
 	var organizerId = req.params.organizerId;
@@ -424,14 +424,13 @@ console.log("We are Inside addEvent controller");
         eventURL : req.body.eventURL,
         eventStartDate : req.body.eventStartDate,
         eventEndDate : req.body.eventEndDate,
-        organizer: req.body.organizerId,
+        organizer: req.body.eventOrganizer,
         eventImage : _splitArray(req.body.eventImage),
         eventPrice : parseInt(req.body.eventPrice, 10),
         eventLocation : {
         address : req.body.eventAddress,
         latitude : parseFloat(req.body.eventLatitude),
-        longitude: parseFloat(req.body.eventLongitude),
-       // organizer: req.body.organizerId
+        longitude: parseFloat(req.body.eventLongitude)
       }
     },function(err, event){
 
@@ -457,6 +456,7 @@ module.exports.getEvent = function(req,res){
 
   Event
   .findById(eventId)
+  .populate('organizer')
   .exec (function(err,doc){
     var response = {
       status : 200,
@@ -655,6 +655,7 @@ var studentId = req.params.studentId;
 
  Event
  .find( { students:  studentId  } )
+ .sort([['eventStartDate', 1]])
  .exec(function(err,events){ 
 
       if(err) {
@@ -668,8 +669,27 @@ var studentId = req.params.studentId;
         .json(events);
       }
     });
+};
 
+module.exports.getAllEventsByOrganizer = function(req,res){
+var organizerId = req.params.organizerId;
 
+ Event
+ .find( { organizer:  organizerId  } )
+ .sort([['eventStartDate', 1]])
+ .exec(function(err,events){ 
+
+      if(err) {
+        console.log("Error finding events", err);
+        res
+        .status(500)
+        .json(err);
+      } else{
+        console.log("found events", events.length);
+        res
+        .json(events);
+      }
+    });
 };
 
 module.exports.getAllFutureEvents = function(req,res){

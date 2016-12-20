@@ -30,7 +30,7 @@ import { Organizer } from '../models/organizer.class';
             <img src="./dist/img/money.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">{{event.eventPrice | currency:'EUR':true:'1.2-2'}}</div>
           </div>
-          <div class="event-box__info event-box__info--pointer" [routerLink]="['/organizer', user.userId,'event', event._id]">
+          <div class="event-box__info event-box__info--pointer" [routerLink]="['/event', event._id,'user', user.userId]">
             <img src="./dist/img/loupe.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">See Details</div>
           </div>
@@ -41,7 +41,7 @@ import { Organizer } from '../models/organizer.class';
           <div *ngIf="user.userType === organizerType" class="event-box__info event-box__info--pointer">
             <div class="row">
               <div class="col-xs-6 event-box__control"><i (click)="deleteEvent(event)" class="fa fa-trash-o"></i></div>
-              <div class="col-xs-6 event-box__control"><i routerLink="/event/addEvent/{{user.userId}}/event/{{event._id}}" class="fa fa-pencil"></i></div>
+              <div class="col-xs-6 event-box__control"><i routerLink="/event/addEvent/event/{{event._id}}" class="fa fa-pencil"></i></div>
             </div>
           </div>
         </div>
@@ -57,13 +57,9 @@ export class EventListComponent{
   studentType = 'student';
   
   constructor(private eventsService: EventsService) { }
-
-  ngOnInit() {
-    console.log('This is user: ', this.user);
-  }
   
   deleteEvent(event: Event){
-    this.eventsService.deleteEvent(this.user.userId, event)
+    this.eventsService.deleteEvent(event)
       .subscribe(data => this.sucessDelete(data, event));
   }
   

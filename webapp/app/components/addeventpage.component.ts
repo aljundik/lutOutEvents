@@ -50,6 +50,7 @@ import { Event } from '../models/event.class';
             <sebm-google-map-marker [latitude]="newEvent.eventLatitude" [longitude]="newEvent.eventLongitude" [markerDraggable]="marker.draggable" (dragEnd)="markerDragEnd(m, $event)"></sebm-google-map-marker>
           </sebm-google-map>
         </div>
+        <input [(ngModel)]="newEvent.eventOrganizer" type="hidden" name="eventOrganizer" id="eventOrganizer">
         <button type="submit" class="btn btn-default">Add</button>
         <p *ngIf="showSuccessMessage" class="col-xs-12 bg-success">Event created successfully!</p>
         <p *ngIf="showErrorMessage" class="col-xs-12 bg-warning">Error creating event.</p>
@@ -94,11 +95,11 @@ export class AddEventComponent {
     console.log('editMode: ', this.editMode);
     
     if (this.editMode) {
-      this.eventsService.getEvent(this.userId, this.eventId)
+      this.eventsService.getEvent(this.eventId)
         .subscribe(data => this.fillEeventData(data));
     }
     else{
-      this.newEvent = new Event("","","","","","","https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude); 
+      this.newEvent = new Event("","","","","","","https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude, this.userId); 
     }
   }
   
@@ -107,8 +108,6 @@ export class AddEventComponent {
     this.newEvent.eventAddress = data.eventLocation.address;
     this.newEvent.eventLatitude = data.eventLocation.latitude;
     this.newEvent.eventLongitude = data.eventLocation.longitude;
-    
-    console.log('Event: ', this.newEvent);
   }
   
   addEvent(newEvent: Event) {
@@ -121,8 +120,7 @@ export class AddEventComponent {
   }
   
   editEvent(event: Event) {
-    console.log('Event: ', this.newEvent);
-    this.eventsService.editEvent(this.userId, event)
+    this.eventsService.editEvent(event)
         .subscribe(user => this.addEventSuccess(user), err=> this.addEventError(err)); 
   }
   
@@ -135,7 +133,6 @@ export class AddEventComponent {
   }
   
   addEventError(err) {
-    console.log('Error!!', err);
     this.showErrorMessage = true;
     
     setTimeout(() => {
@@ -144,7 +141,6 @@ export class AddEventComponent {
   }
   
   markerDragEnd(m, $event) {
-    console.log('Dragged: ', $event.coords);
     this.newEvent.eventLatitude = $event.coords.lat;
     this.newEvent.eventLongitude = $event.coords.lng;
   }

@@ -20,10 +20,10 @@ router
 	.delete(ctrlOrganizer.organizerDelete);
 
 // Organizer events routes
-router
-	.route('/organizer/:organizerId/event')
-	.get(ctrlEvent.eventGetAll) 
-	.post(ctrlEvent.eventAddOne);
+// router
+// 	.route('/organizer/:organizerId/event')
+// 	.get(ctrlEvent.eventGetAll) 
+// 	.post(ctrlEvent.eventAddOne);
 
 router 
 	.route('/organizer/:organizerId/recent')
@@ -82,6 +82,10 @@ router
 	.get(ctrlEvent.getEvent)
 	.put(ctrlEvent.editEvent)
 	.delete(ctrlEvent.deleteEvent);
+
+router
+	.route('/newEvent/organizer/:organizerId')
+	.get(ctrlEvent.getAllEventsByOrganizer);
 
 router
 	.route('/eventSubscription/:eventId')

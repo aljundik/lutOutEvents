@@ -1,0 +1,9 @@
+@import "../2-tools/bemify.scss";
+@import "../2-tools/utils.scss";
+
+@include block('image-detail'){
+    max-width: 100%;
+    object-fit: scale-down;
+    margin: 0 auto;
+    display: block;
+}
