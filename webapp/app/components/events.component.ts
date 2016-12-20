@@ -10,7 +10,7 @@ import { OrganizerService } from '../services/organizer.service';
 
 @Component({
   template: `
-    <navigation></navigation>
+    <navigation [userId]="userId" [showBackOption]="false"></navigation>
     <div class="container">
       <h2>My LUT Calendar</h2>
       <p-schedule *ngIf="calendarEvents" [events]="calendarEvents"></p-schedule>
@@ -75,9 +75,13 @@ export class EventsComponent {
     this.calendarEvents = [];
     for (let event of data) {
       if (this.calendarEvents) {
-        this.calendarEvents.push(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate));
+        let localStartTime = new Date(event.eventStartDate);
+        let localEndTime = new Date(event.eventEndDate);
+        this.calendarEvents.push(new CalendarEvent(event.eventTitle, localStartTime, localEndTime));
       } else {
-        this.calendarEvents = [(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate))];
+        let localStartTime = new Date(event.eventStartDate);
+        let localEndTime = new Date(event.eventEndDate);
+        this.calendarEvents = [(new CalendarEvent(event.eventTitle, localStartTime, localEndTime))];
       }
     }
   }

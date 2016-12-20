@@ -30,7 +30,7 @@ import { Organizer } from '../models/organizer.class';
             <img src="./dist/img/money.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">{{event.eventPrice | currency:'EUR':true:'1.2-2'}}</div>
           </div>
-          <div class="event-box__info event-box__info--pointer" [routerLink]="['/event', event._id,'user', user.userId]">
+          <div class="event-box__info event-box__info--pointer" [routerLink]="['/event', event._id,'user', userId]">
             <img src="./dist/img/loupe.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">See Details</div>
           </div>

@@ -52,7 +52,7 @@ var EventDetailPageComponent = (function () {
     };
     EventDetailPageComponent = __decorate([
         core_1.Component({
-            template: "\n    <navigation></navigation>\n    <event-detail-info *ngIf=\"event && user\" [event]=\"event\" [user]=\"user\"></event-detail-info>\n    <img *ngIf=\"!event || !user\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n  "
+            template: "\n    <navigation *ngIf=\"userId\" [userId]=\"userId\" [showBackOption]=\"true\"></navigation>\n    <event-detail-info *ngIf=\"event && user\" [event]=\"event\" [user]=\"user\"></event-detail-info>\n    <img *ngIf=\"!event || !user\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n  "
         }), 
         __metadata('design:paramtypes', [events_service_1.EventsService, student_service_1.StudentService, organizer_service_1.OrganizerService, router_1.ActivatedRoute, router_1.Router])
     ], EventDetailPageComponent);

@@ -64,10 +64,14 @@ var EventsComponent = (function () {
         for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
             var event_2 = data_2[_i];
             if (this.calendarEvents) {
-                this.calendarEvents.push(new calendarevent_class_1.CalendarEvent(event_2.eventTitle, event_2.eventStartDate, event_2.eventEndDate));
+                var localStartTime = new Date(event_2.eventStartDate);
+                var localEndTime = new Date(event_2.eventEndDate);
+                this.calendarEvents.push(new calendarevent_class_1.CalendarEvent(event_2.eventTitle, localStartTime, localEndTime));
             }
             else {
-                this.calendarEvents = [(new calendarevent_class_1.CalendarEvent(event_2.eventTitle, event_2.eventStartDate, event_2.eventEndDate))];
+                var localStartTime = new Date(event_2.eventStartDate);
+                var localEndTime = new Date(event_2.eventEndDate);
+                this.calendarEvents = [(new calendarevent_class_1.CalendarEvent(event_2.eventTitle, localStartTime, localEndTime))];
             }
         }
     };
@@ -104,7 +108,7 @@ var EventsComponent = (function () {
     };
     EventsComponent = __decorate([
         core_1.Component({
-            template: "\n    <navigation></navigation>\n    <div class=\"container\">\n      <h2>My LUT Calendar</h2>\n      <p-schedule *ngIf=\"calendarEvents\" [events]=\"calendarEvents\"></p-schedule>\n      <event-list *ngIf=\"user && events && userId\" [user]=\"user\" [events]=\"events\" [userId]=\"userId\" (outputEvent)=\"updateCalendar($event)\"></event-list>\n      <img *ngIf=\"!user || !events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    </div>\n  "
+            template: "\n    <navigation [userId]=\"userId\" [showBackOption]=\"false\"></navigation>\n    <div class=\"container\">\n      <h2>My LUT Calendar</h2>\n      <p-schedule *ngIf=\"calendarEvents\" [events]=\"calendarEvents\"></p-schedule>\n      <event-list *ngIf=\"user && events && userId\" [user]=\"user\" [events]=\"events\" [userId]=\"userId\" (outputEvent)=\"updateCalendar($event)\"></event-list>\n      <img *ngIf=\"!user || !events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [student_service_1.StudentService, organizer_service_1.OrganizerService, events_service_1.EventsService, router_1.ActivatedRoute, router_1.Router])
     ], EventsComponent);

@@ -6,7 +6,7 @@ import { Event } from '../models/event.class';
 
 @Component({
   template: `
-    <navigation></navigation>
+    <navigation *ngIf="userId" [userId]="userId" [showBackOption]="true"></navigation>
     <div class="container">
     <h1 *ngIf="!editMode">Add New Event</h1>
     <h1 *ngIf="editMode">Edit Event</h1>
@@ -99,7 +99,7 @@ export class AddEventComponent {
         .subscribe(data => this.fillEventData(data));
     }
     else{
-      this.newEvent = new Event("","","","","","","https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude, this.userId, []); 
+      this.newEvent = new Event("","","","",null,null,"https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude, this.userId, []); 
     }
   }
   

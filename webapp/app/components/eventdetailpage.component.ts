@@ -9,7 +9,7 @@ import { OrganizerService } from '../services/organizer.service';
 
 @Component({
   template: `
-    <navigation></navigation>
+    <navigation *ngIf="userId" [userId]="userId" [showBackOption]="true"></navigation>
     <event-detail-info *ngIf="event && user" [event]="event" [user]="user"></event-detail-info>
     <img *ngIf="!event || !user" class="center-block" src="./dist/img/loading-medium.gif">
   `

@@ -1,0 +1,7 @@
+@import "../2-tools/bemify.scss";
+@import "../2-tools/utils.scss";
+
+@include block('backOption'){
+    display: flex !important;
+    width: 80px;
+}

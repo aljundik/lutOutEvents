@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector:'navigation',
@@ -8,9 +8,8 @@ import { Component } from '@angular/core';
         <nav class="navbar navbar-default">
           <div class="container-fluid">
             <ul class="nav navbar-nav">
-              <li><a href="#">All Events</a></li>
-              <li><a href="#">My Calendar</a></li>
-              <li><a [routerLink]="['']">Logout</a></li>
+              <li *ngIf="showBackOption" class="backOption" [routerLink]="backUrl"><p class="fa fa-arrow-left" aria-hidden="true"></p><p class="text-center">Go Back</p></li>
+              <li><p [routerLink]="['']">Logout</p></li>
             </ul>
           </div>
         </nav>
@@ -18,4 +17,12 @@ import { Component } from '@angular/core';
     </div>
   `
 })
-export class NavigationComponent{}
+export class NavigationComponent{
+  @Input() userId: string;
+  @Input() showBackOption: boolean;
+  backUrl: string;
+  
+  ngOnInit() {
+    this.backUrl='/events/' + this.userId;
+  }
+}

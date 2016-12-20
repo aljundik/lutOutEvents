@@ -12,10 +12,21 @@ var core_1 = require('@angular/core');
 var NavigationComponent = (function () {
     function NavigationComponent() {
     }
+    NavigationComponent.prototype.ngOnInit = function () {
+        this.backUrl = '/events/' + this.userId;
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], NavigationComponent.prototype, "userId", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], NavigationComponent.prototype, "showBackOption", void 0);
     NavigationComponent = __decorate([
         core_1.Component({
             selector: 'navigation',
-            template: "\n    <div class=\"container-fluid navigation-box\">\n      <div class=\"container\">\n        <nav class=\"navbar navbar-default\">\n          <div class=\"container-fluid\">\n            <ul class=\"nav navbar-nav\">\n              <li><a href=\"#\">All Events</a></li>\n              <li><a href=\"#\">My Calendar</a></li>\n              <li><a [routerLink]=\"['']\">Logout</a></li>\n            </ul>\n          </div>\n        </nav>\n      </div>\n    </div>\n  "
+            template: "\n    <div class=\"container-fluid navigation-box\">\n      <div class=\"container\">\n        <nav class=\"navbar navbar-default\">\n          <div class=\"container-fluid\">\n            <ul class=\"nav navbar-nav\">\n              <li *ngIf=\"showBackOption\" class=\"backOption\" [routerLink]=\"backUrl\"><p class=\"fa fa-arrow-left\" aria-hidden=\"true\"></p><p class=\"text-center\">Go Back</p></li>\n              <li><p [routerLink]=\"['']\">Logout</p></li>\n            </ul>\n          </div>\n        </nav>\n      </div>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], NavigationComponent);
