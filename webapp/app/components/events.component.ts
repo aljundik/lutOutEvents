@@ -14,7 +14,7 @@ import { OrganizerService } from '../services/organizer.service';
     <div class="container">
       <h2>My LUT Calendar</h2>
       <p-schedule *ngIf="calendarEvents" [events]="calendarEvents"></p-schedule>
-      <event-list *ngIf="user && events && userId" [user]="user" [events]="events" [userId]="userId"></event-list>
+      <event-list *ngIf="user && events && userId" [user]="user" [events]="events" [userId]="userId" (outputEvent)="updateCalendar($event)"></event-list>
       <img *ngIf="!user || !events" class="center-block" src="./dist/img/loading-medium.gif">
     </div>
   `
@@ -57,6 +57,7 @@ export class EventsComponent {
   
   mapOrganizerEventsData(data){
     this.events = data;
+    this.calendarEvents = [];
     for (let event of data) {
       if (this.calendarEvents) {
         this.calendarEvents.push(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate));
@@ -67,6 +68,7 @@ export class EventsComponent {
   }
   
   mapStudentCalendarEvents(data){
+    this.calendarEvents = [];
     for (let event of data) {
       if (this.calendarEvents) {
         this.calendarEvents.push(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate));
@@ -86,14 +88,22 @@ export class EventsComponent {
         .subscribe(data => this.events = data);
   }
   
-  getSubscribedEventsByStudent(user: User){
+  getSubscribedEventsByStudent(userId:string){
     console.log('USER ID:!!!! ', this.userId);
     this.eventsService.getSubscribedEventsByStudent(this.userId)
         .subscribe(data => this.mapStudentCalendarEvents(data));
   }
   
+  updateCalendar(){
+    if (this.user.userType === this.studentType) {
+      this.getSubscribedEventsByStudent(this.userId);
+    } else {
+      this.getEventsByOrganizer(this.user); 
+    }
+  }
+  
   ngOnInit() {
-    
+
     this.route.params.forEach((params: Params) => {
          this.userId = params['id'];
          this.getUserInfo(this.userId);

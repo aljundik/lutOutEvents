@@ -44,6 +44,7 @@ var EventsComponent = (function () {
     };
     EventsComponent.prototype.mapOrganizerEventsData = function (data) {
         this.events = data;
+        this.calendarEvents = [];
         for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
             var event_1 = data_1[_i];
             if (this.calendarEvents) {
@@ -55,6 +56,7 @@ var EventsComponent = (function () {
         }
     };
     EventsComponent.prototype.mapStudentCalendarEvents = function (data) {
+        this.calendarEvents = [];
         for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
             var event_2 = data_2[_i];
             if (this.calendarEvents) {
@@ -75,11 +77,19 @@ var EventsComponent = (function () {
         this.eventsService.getAllEvents()
             .subscribe(function (data) { return _this.events = data; });
     };
-    EventsComponent.prototype.getSubscribedEventsByStudent = function (user) {
+    EventsComponent.prototype.getSubscribedEventsByStudent = function (userId) {
         var _this = this;
         console.log('USER ID:!!!! ', this.userId);
         this.eventsService.getSubscribedEventsByStudent(this.userId)
             .subscribe(function (data) { return _this.mapStudentCalendarEvents(data); });
+    };
+    EventsComponent.prototype.updateCalendar = function () {
+        if (this.user.userType === this.studentType) {
+            this.getSubscribedEventsByStudent(this.userId);
+        }
+        else {
+            this.getEventsByOrganizer(this.user);
+        }
     };
     EventsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -90,7 +100,7 @@ var EventsComponent = (function () {
     };
     EventsComponent = __decorate([
         core_1.Component({
-            template: "\n    <navigation></navigation>\n    <div class=\"container\">\n      <h2>My LUT Calendar</h2>\n      <p-schedule *ngIf=\"calendarEvents\" [events]=\"calendarEvents\"></p-schedule>\n      <event-list *ngIf=\"user && events && userId\" [user]=\"user\" [events]=\"events\" [userId]=\"userId\"></event-list>\n      <img *ngIf=\"!user || !events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    </div>\n  "
+            template: "\n    <navigation></navigation>\n    <div class=\"container\">\n      <h2>My LUT Calendar</h2>\n      <p-schedule *ngIf=\"calendarEvents\" [events]=\"calendarEvents\"></p-schedule>\n      <event-list *ngIf=\"user && events && userId\" [user]=\"user\" [events]=\"events\" [userId]=\"userId\" (outputEvent)=\"updateCalendar($event)\"></event-list>\n      <img *ngIf=\"!user || !events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [student_service_1.StudentService, organizer_service_1.OrganizerService, events_service_1.EventsService, router_1.ActivatedRoute, router_1.Router])
     ], EventsComponent);

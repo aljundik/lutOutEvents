@@ -1,4 +1,4 @@
-import { Component, Input, Pipe } from '@angular/core';
+import { Component, Input, Pipe, EventEmitter, Output } from '@angular/core';
 
 import { EventsService } from '../services/events.service';
 import { Event } from '../models/event.class';
@@ -55,6 +55,7 @@ export class EventListComponent{
   @Input() user: User;
   @Input() events: Event[];
   @Input() userId: string;
+  @Output() outputEvent:EventEmitter<boolean>=new EventEmitter();
   
   organizerType = 'organizer';
   studentType = 'student';
@@ -77,6 +78,7 @@ export class EventListComponent{
   sucessDelete(data: any, event:Event){
     let index = this.events.indexOf(event);
     this.events.splice(index, 1);
+    this.outputEvent.emit(true);
   }
   
   subscribeEvent(event: Event) {
@@ -101,6 +103,8 @@ export class EventListComponent{
       this.events[index].students.splice(studentIndex, 0, this.userId);
       console.log('subscribed!');
     }
+    
+    this.outputEvent.emit(true);
     
   }
 

@@ -14,6 +14,7 @@ var user_class_1 = require('../models/user.class');
 var EventListComponent = (function () {
     function EventListComponent(eventsService) {
         this.eventsService = eventsService;
+        this.outputEvent = new core_1.EventEmitter();
         this.organizerType = 'organizer';
         this.studentType = 'student';
     }
@@ -33,6 +34,7 @@ var EventListComponent = (function () {
     EventListComponent.prototype.sucessDelete = function (data, event) {
         var index = this.events.indexOf(event);
         this.events.splice(index, 1);
+        this.outputEvent.emit(true);
     };
     EventListComponent.prototype.subscribeEvent = function (event) {
         var _this = this;
@@ -56,6 +58,7 @@ var EventListComponent = (function () {
             this.events[index].students.splice(studentIndex, 0, this.userId);
             console.log('subscribed!');
         }
+        this.outputEvent.emit(true);
     };
     __decorate([
         core_1.Input(), 
@@ -69,6 +72,10 @@ var EventListComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], EventListComponent.prototype, "userId", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], EventListComponent.prototype, "outputEvent", void 0);
     EventListComponent = __decorate([
         core_1.Component({
             selector: 'event-list',
