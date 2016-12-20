@@ -24,7 +24,7 @@ import { Organizer } from '../models/organizer.class';
           </div>
           <div class="event-box__info">
             <img src="./dist/img/alarm-clock.png" width="40px" height="40px">
-            <div class="text-center event-box__info__data">{{event.eventStartDate | date:'jms'}}</div>
+            <div class="text-center event-box__info__data">{{event.eventStartDate | date:'shortTime' : 'ISO'}}</div>
           </div>
           <div class="event-box__info">
             <img src="./dist/img/money.png" width="40px" height="40px">

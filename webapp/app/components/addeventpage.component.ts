@@ -26,11 +26,11 @@ import { Event } from '../models/event.class';
         </div>
         <div class="form-group">
           <label for="eventStartDate">Start Date</label>
-          <input [(ngModel)]="newEvent.eventStartDate" type="datetime-local" class="form-control" id="eventStartDate" name="eventStartDate">
+          <p-calendar [(ngModel)]="newEvent.eventStartDate" showTime="showTime" class="form-control" id="eventStartDate" name="eventStartDate" hourFormat="24"></p-calendar>
         </div>
         <div class="form-group">
           <label for="eventEndDate">End Date</label>
-          <input [(ngModel)]="newEvent.eventEndDate" type="datetime-local" class="form-control" id="eventEndDate" name="eventEndDate">
+          <p-calendar [(ngModel)]="newEvent.eventEndDate" showTime="showTime" class="form-control" id="eventEndDate" name="eventEndDate" hourFormat="24"></p-calendar>
         </div>
         <div class="form-group">
           <label for="eventImage">Image URL</label>
@@ -96,15 +96,18 @@ export class AddEventComponent {
     
     if (this.editMode) {
       this.eventsService.getEvent(this.eventId)
-        .subscribe(data => this.fillEeventData(data));
+        .subscribe(data => this.fillEventData(data));
     }
     else{
       this.newEvent = new Event("","","","","","","https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0,"", this.marker.latitude, this.marker.longitude, this.userId, []); 
     }
   }
   
-  fillEeventData(data) {
+  fillEventData(data) {
     this.newEvent = data;
+    console.log('PRICE: ', this.newEvent.eventPrice);
+    this.newEvent.eventStartDate = new Date(data.eventStartDate);
+    this.newEvent.eventEndDate = new Date(data.eventEndDate);
     this.newEvent.eventAddress = data.eventLocation.address;
     this.newEvent.eventLatitude = data.eventLocation.latitude;
     this.newEvent.eventLongitude = data.eventLocation.longitude;

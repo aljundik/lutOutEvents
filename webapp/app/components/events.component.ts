@@ -60,9 +60,13 @@ export class EventsComponent {
     this.calendarEvents = [];
     for (let event of data) {
       if (this.calendarEvents) {
-        this.calendarEvents.push(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate));
+        let localStartTime = new Date(event.eventStartDate);
+        let localEndTime = new Date(event.eventEndDate);
+        this.calendarEvents.push(new CalendarEvent(event.eventTitle, localStartTime, localEndTime));
       } else {
-        this.calendarEvents = [(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate))];
+        let localStartTime = new Date(event.eventStartDate);
+        let localEndTime = new Date(event.eventEndDate);
+        this.calendarEvents = [(new CalendarEvent(event.eventTitle, localStartTime, localEndTime))];
       }
     }
   }

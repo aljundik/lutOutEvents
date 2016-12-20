@@ -25,6 +25,7 @@ import { StudentService }   from '../services/student.service';
 import { LoginService } from '../services/login.service';
 
 import { ScheduleModule } from 'primeng/components/schedule/schedule';
+import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { AgmCoreModule } from 'angular2-google-maps/core/core-module.js';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core/core-module.js';
     FormsModule,
     AppRoutingModule,
     ScheduleModule,
+    CalendarModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBz0QP5-bQUjI2VX_C1td3wXAveMrCKv4k'
     })

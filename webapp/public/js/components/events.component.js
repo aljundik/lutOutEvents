@@ -48,10 +48,14 @@ var EventsComponent = (function () {
         for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
             var event_1 = data_1[_i];
             if (this.calendarEvents) {
-                this.calendarEvents.push(new calendarevent_class_1.CalendarEvent(event_1.eventTitle, event_1.eventStartDate, event_1.eventEndDate));
+                var localStartTime = new Date(event_1.eventStartDate);
+                var localEndTime = new Date(event_1.eventEndDate);
+                this.calendarEvents.push(new calendarevent_class_1.CalendarEvent(event_1.eventTitle, localStartTime, localEndTime));
             }
             else {
-                this.calendarEvents = [(new calendarevent_class_1.CalendarEvent(event_1.eventTitle, event_1.eventStartDate, event_1.eventEndDate))];
+                var localStartTime = new Date(event_1.eventStartDate);
+                var localEndTime = new Date(event_1.eventEndDate);
+                this.calendarEvents = [(new calendarevent_class_1.CalendarEvent(event_1.eventTitle, localStartTime, localEndTime))];
             }
         }
     };

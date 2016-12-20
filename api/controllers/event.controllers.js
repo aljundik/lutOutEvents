@@ -533,6 +533,7 @@ module.exports.editEvent = function(req,res){
         doc.eventURL = req.body.eventURL;
         doc.eventStartDate = req.body.eventStartDate;
         doc.eventEndDate = req.body.eventEndDate;
+        doc.eventPrice = req.body.eventPrice;
         doc.eventLocation = {
          address : req.body.eventAddress,
          latitude : parseFloat(req.body.eventLatitude),
