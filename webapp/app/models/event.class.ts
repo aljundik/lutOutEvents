@@ -11,6 +11,7 @@ export class Event {
 		public eventPrice : number,
 		public eventAddress : string,
 		public eventLatitude : number,
-		public eventLongitude: number
+		public eventLongitude: number,
+		public eventOrganizer: string
 	){}
 }

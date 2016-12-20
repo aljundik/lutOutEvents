@@ -13,9 +13,9 @@ import { PageNotFoundComponent } from '../components/pagenotfound.component';
     RouterModule.forRoot([
         { path: '', component: WelcomeComponent },
         { path: 'events/:id', component: EventsComponent },
-        { path: 'organizer/:id/event/:eventId', component: EventDetailPageComponent },
+        { path: 'event/:eventId/user/:id', component: EventDetailPageComponent },
         { path: 'event/addEvent/:id', component: AddEventComponent },
-        { path: 'event/addEvent/:id/event/:eventId', component: AddEventComponent },
+        { path: 'event/addEvent/event/:eventId', component: AddEventComponent },
         { path: 'addOrganizer', component: OrganizerComponent },
         { path: '**', component: PageNotFoundComponent }
     ])

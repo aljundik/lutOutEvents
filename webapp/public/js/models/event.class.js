@@ -1,6 +1,6 @@
 "use strict";
 var Event = (function () {
-    function Event(_id, eventTitle, eventDescription, eventURL, eventStartDate, eventEndDate, eventImage, eventPrice, eventAddress, eventLatitude, eventLongitude) {
+    function Event(_id, eventTitle, eventDescription, eventURL, eventStartDate, eventEndDate, eventImage, eventPrice, eventAddress, eventLatitude, eventLongitude, eventOrganizer) {
         this._id = _id;
         this.eventTitle = eventTitle;
         this.eventDescription = eventDescription;
@@ -12,6 +12,7 @@ var Event = (function () {
         this.eventAddress = eventAddress;
         this.eventLatitude = eventLatitude;
         this.eventLongitude = eventLongitude;
+        this.eventOrganizer = eventOrganizer;
     }
     return Event;
 }());

@@ -16,6 +16,8 @@ var EventsService = (function () {
         this.http = http;
         this.organizerURL = 'api/organizer';
         this.eventsURL = 'api/events';
+        this.newOrganizerURL = 'api/newOrganizer';
+        this.newEventURL = 'api/newEvent';
     }
     EventsService.prototype.extractData = function (res) {
         var body = res.json();
@@ -31,47 +33,33 @@ var EventsService = (function () {
         b = parseFloat(b.eventPrice);
         return a < b ? -1 : a > b ? 1 : 0;
     };
-    EventsService.prototype.deleteEvent = function (organizerId, event) {
-        return this.http.delete(this.organizerURL + '/' + organizerId + '/event/' + event._id);
+    EventsService.prototype.deleteEvent = function (event) {
+        return this.http.delete(this.newEventURL + '/' + event._id);
     };
     EventsService.prototype.addEvent = function (organizerId, event) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
         var body = JSON.stringify(event);
-        return this.http.post(this.organizerURL + '/' + organizerId + '/event', body, options)
+        return this.http.post(this.newEventURL, body, options)
             .map(this.extractData);
     };
-    EventsService.prototype.getEvent = function (organizerId, eventId) {
-        return this.http.get(this.organizerURL + '/' + organizerId + '/event/' + eventId)
+    EventsService.prototype.getEvent = function (eventId) {
+        return this.http.get(this.newEventURL + '/' + eventId)
             .map(function (response) { return response.json(); });
     };
-    EventsService.prototype.editEvent = function (organizerId, event) {
+    EventsService.prototype.editEvent = function (event) {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         var options = new http_1.RequestOptions({ headers: headers });
         var body = JSON.stringify(event);
-        return this.http.put(this.organizerURL + '/' + organizerId + '/event/' + event._id, body, options);
+        return this.http.put(this.newEventURL + '/' + event._id, body, options);
     };
     EventsService.prototype.getAllEvents = function () {
-        var _this = this;
-        return this.http.get(this.eventsURL)
-            .map(function (response) { return _this.formatEvents(response); });
-    };
-    EventsService.prototype.formatEvents = function (response) {
-        var allEvents = [];
-        for (var _i = 0, _a = JSON.parse(response._body); _i < _a.length; _i++) {
-            var eventsObject = _a[_i];
-            for (var _b = 0, _c = eventsObject.events; _b < _c.length; _b++) {
-                var event_1 = _c[_b];
-                allEvents.push(event_1);
-            }
-        }
-        console.log('sorting.. ', allEvents.sort(this.sortByDate));
-        return allEvents.sort(this.sortByDate);
+        return this.http.get(this.newEventURL)
+            .map(function (response) { return response.json(); });
     };
     EventsService.prototype.getEventsByOrganizer = function (organizerId) {
-        var _this = this;
-        return this.http.get(this.organizerURL + '/' + organizerId + '/event')
-            .map(function (response) { return response.json().sort(_this.sortByDate); });
+        return this.http.get(this.newEventURL + '/organizer/' + organizerId)
+            .map(function (response) { return response.json(); });
     };
     EventsService = __decorate([
         core_1.Injectable(), 

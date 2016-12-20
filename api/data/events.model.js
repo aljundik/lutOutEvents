@@ -53,12 +53,12 @@ var eventSchema = new mongoose.Schema({
 		required: true
 	},
 	eventStartDate: {
-		type : String,
+		type : Date,
 		required: true
 		//"default" : Date.now
 	},
 	eventEndDate: {
-		type : String,
+		type : Date,
 		required: true
 	},
 	eventCreatedOn: {
@@ -82,8 +82,16 @@ var eventSchema = new mongoose.Schema({
 		type : String,
 		required: true
 	},
-	eventImage : [String] 
-});
+	eventImage : [String],
+    organizer: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Organizer'
+        },
+    students: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student'
+        }]
+    });
 var organizerSchema = new mongoose.Schema({
 	organizerName: {
 		type : String,
@@ -112,6 +120,9 @@ var organizerSchema = new mongoose.Schema({
 });
 
 
+
+
 //mongoose.model('Event',eventSchema);
-mongoose.model('Organizer',organizerSchema);
-mongoose.model('Student',studentSchema);
+var Organizer = mongoose.model('Organizer',organizerSchema);
+var Student = mongoose.model('Student',studentSchema);
+mongoose.model('Event',eventSchema);

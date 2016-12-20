@@ -20,10 +20,10 @@ router
 	.delete(ctrlOrganizer.organizerDelete);
 
 // Organizer events routes
-router
-	.route('/organizer/:organizerId/event')
-	.get(ctrlEvent.eventGetAll) 
-	.post(ctrlEvent.eventAddOne);
+// router
+// 	.route('/organizer/:organizerId/event')
+// 	.get(ctrlEvent.eventGetAll) 
+// 	.post(ctrlEvent.eventAddOne);
 
 router 
 	.route('/organizer/:organizerId/recent')
@@ -63,12 +63,41 @@ router
 	.get(ctrlCustomEvent.customEventGetOne)
 	.put(ctrlCustomEvent.customEventUpdateOne)
 	.delete(ctrlCustomEvent.customEventDeleteOne);
-
-
 // Login Events
 router
 	.route('/login')
 	.post(ctrlLogin.userLogin);
 
+/////////////////////////////////////////////////////////////////
+//new routs//////////////////
+
+
+router
+	.route('/newEvent')
+	.post(ctrlEvent.addEvent)
+	.get(ctrlEvent.getAllEvents);
+
+router
+	.route('/newEvent/:eventId')
+	.get(ctrlEvent.getEvent)
+	.put(ctrlEvent.editEvent)
+	.delete(ctrlEvent.deleteEvent);
+
+router
+	.route('/newEvent/organizer/:organizerId')
+	.get(ctrlEvent.getAllEventsByOrganizer);
+
+router
+	.route('/eventSubscription/:eventId')
+	.put(ctrlEvent.subscribe)
+	.delete(ctrlEvent.subscribeDelete);
+
+router
+	.route('/newEvent/student/:studentId')
+	.get(ctrlEvent.getAllEventsByStudent);
+
+router
+	.route('/futureEvents')
+	.get(ctrlEvent.getAllFutureEvents);
 
 module.exports = router;
