@@ -34,9 +34,11 @@ import { Organizer } from '../models/organizer.class';
             <img src="./dist/img/loupe.png" width="40px" height="40px">
             <div class="text-center event-box__info__data">See Details</div>
           </div>
-          <div *ngIf="user.userType === studentType" class="event-box__info event-box__info--pointer">
-            <div class="fa fa-heart-o event-box__info__icon"></div>
-            <div class="event-box__info__data">Add</div>
+          <div (click)="subscribeEvent(event)" *ngIf="user.userType === studentType" class="event-box__info event-box__info--pointer">
+            <div *ngIf="isSusbscribed(event)" class="fa fa-heart event-box__info__icon"></div>
+            <div *ngIf="!isSusbscribed(event)" class="fa fa-heart-o event-box__info__icon"></div>
+            <div *ngIf="!isSusbscribed(event)" class="event-box__info__data">Add</div>
+            <div *ngIf="isSusbscribed(event)" class="event-box__info__data">Remove Event</div>
           </div>
           <div *ngIf="user.userType === organizerType" class="event-box__info event-box__info--pointer">
             <div class="row">
@@ -52,11 +54,20 @@ import { Organizer } from '../models/organizer.class';
 export class EventListComponent{
   @Input() user: User;
   @Input() events: Event[];
+  @Input() userId: string;
   
   organizerType = 'organizer';
   studentType = 'student';
   
   constructor(private eventsService: EventsService) { }
+  
+  isSusbscribed(event: any) {
+    if (event.students && event.students.indexOf(this.userId) >= 0 ){
+      return true;
+    } else {
+      return false;
+    }
+  }
   
   deleteEvent(event: Event){
     this.eventsService.deleteEvent(event)
@@ -66,6 +77,31 @@ export class EventListComponent{
   sucessDelete(data: any, event:Event){
     let index = this.events.indexOf(event);
     this.events.splice(index, 1);
+  }
+  
+  subscribeEvent(event: Event) {
+    if (this.isSusbscribed(event)) {
+      this.eventsService.unSubscribe(this.userId, event._id)
+        .subscribe(data => this.successSubscription(data, event))
+    } else {
+      this.eventsService.subscribe(this.userId, event._id)
+        .subscribe(data => this.successSubscription(data, event))
+    }
+    
+  }
+  
+  successSubscription(data: any, event: Event) {
+    
+    let index = this.events.indexOf(event);
+    if (this.isSusbscribed(event)) {
+      let studentIndex = event.students.indexOf(this.userId);
+      this.events[index].students.splice(studentIndex, 1);
+    } else {
+      let studentIndex = event.students.indexOf(this.userId);
+      this.events[index].students.splice(studentIndex, 0, this.userId);
+      console.log('subscribed!');
+    }
+    
   }
 
 }

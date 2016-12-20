@@ -616,7 +616,7 @@ module.exports.subscribe = function(req,res){
 
 module.exports.subscribeDelete = function(req,res){
   var eventId = req.params.eventId;// req parameters handles the url partamters 
-  var studentId = req.body.studentId;
+  var studentId = req.params.studentId;
   
   console.log("you are in subscribe");
     

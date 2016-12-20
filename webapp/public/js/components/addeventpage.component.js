@@ -43,7 +43,7 @@ var AddEventComponent = (function () {
                 .subscribe(function (data) { return _this.fillEeventData(data); });
         }
         else {
-            this.newEvent = new event_class_1.Event("", "", "", "", "", "", "https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0, "", this.marker.latitude, this.marker.longitude, this.userId);
+            this.newEvent = new event_class_1.Event("", "", "", "", "", "", "https://thumbs.dreamstime.com/t/people-hands-holding-colorful-straight-word-event-many-caucasian-letters-characters-building-isolated-english-white-54680491.jpg", 0, "", this.marker.latitude, this.marker.longitude, this.userId, []);
         }
     };
     AddEventComponent.prototype.fillEeventData = function (data) {

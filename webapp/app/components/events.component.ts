@@ -14,7 +14,7 @@ import { OrganizerService } from '../services/organizer.service';
     <div class="container">
       <h2>My LUT Calendar</h2>
       <p-schedule *ngIf="calendarEvents" [events]="calendarEvents"></p-schedule>
-      <event-list *ngIf="user && events" [user]="user" [events]="events"></event-list>
+      <event-list *ngIf="user && events && userId" [user]="user" [events]="events" [userId]="userId"></event-list>
       <img *ngIf="!user || !events" class="center-block" src="./dist/img/loading-medium.gif">
     </div>
   `
@@ -25,6 +25,7 @@ export class EventsComponent {
   user : User;
   calendarEvents : CalendarEvent[];
   events: Event[];
+  subscribedEvents: Event[];
   organizerType = 'organizer';
   studentType = 'student';
   
@@ -37,7 +38,7 @@ export class EventsComponent {
   private mapStudentInfo(student) {
     this.user = new User(student._id, student.studentName, student.studentEmail, student.studentUserName, "", "student");
     this.getAllEvents();
-    //this.getScheduledEvents(); 
+    this.getSubscribedEventsByStudent(student._id);
   }
   
   private mapOrganizerInfo(organizer) {
@@ -55,8 +56,17 @@ export class EventsComponent {
   }
   
   mapOrganizerEventsData(data){
-    console.log('Map organizer events: ', data);
     this.events = data;
+    for (let event of data) {
+      if (this.calendarEvents) {
+        this.calendarEvents.push(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate));
+      } else {
+        this.calendarEvents = [(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate))];
+      }
+    }
+  }
+  
+  mapStudentCalendarEvents(data){
     for (let event of data) {
       if (this.calendarEvents) {
         this.calendarEvents.push(new CalendarEvent(event.eventTitle, event.eventStartDate, event.eventEndDate));
@@ -73,9 +83,14 @@ export class EventsComponent {
   
   getAllEvents(){
     this.eventsService.getAllEvents()
-      .subscribe(data => this.mapOrganizerEventsData(data));
+        .subscribe(data => this.events = data);
   }
   
+  getSubscribedEventsByStudent(user: User){
+    console.log('USER ID:!!!! ', this.userId);
+    this.eventsService.getSubscribedEventsByStudent(this.userId)
+        .subscribe(data => this.mapStudentCalendarEvents(data));
+  }
   
   ngOnInit() {
     

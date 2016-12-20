@@ -38,7 +38,8 @@ import { User } from '../models/user.class';
           <div *ngIf="user.userType === studentType" class="event-box__info event-box__info--detail event-box__info--pointer">
             <div *ngIf="isSusbscribed()" class="fa fa-heart event-box__info__icon"></div>
             <div *ngIf="!isSusbscribed()" class="fa fa-heart-o event-box__info__icon"></div>
-            <div class="event-box__info__data">Add</div>
+            <div *ngIf="!isSusbscribed()" class="event-box__info__data">Add</div>
+            <div *ngIf="isSusbscribed()" class="event-box__info__data">Remove Event</div>
           </div>
         </div>
       </div>

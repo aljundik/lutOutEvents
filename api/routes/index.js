@@ -90,6 +90,9 @@ router
 router
 	.route('/eventSubscription/:eventId')
 	.put(ctrlEvent.subscribe)
+
+router
+	.route('/eventSubscription/:eventId/user/:studentId')
 	.delete(ctrlEvent.subscribeDelete);
 
 router

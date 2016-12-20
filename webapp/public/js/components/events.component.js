@@ -28,7 +28,7 @@ var EventsComponent = (function () {
     EventsComponent.prototype.mapStudentInfo = function (student) {
         this.user = new user_class_1.User(student._id, student.studentName, student.studentEmail, student.studentUserName, "", "student");
         this.getAllEvents();
-        //this.getScheduledEvents(); 
+        this.getSubscribedEventsByStudent(student._id);
     };
     EventsComponent.prototype.mapOrganizerInfo = function (organizer) {
         this.user = new user_class_1.User(organizer._id, organizer.organizerName, organizer.organizerEmail, organizer.organizerUserName, "", "organizer");
@@ -43,7 +43,6 @@ var EventsComponent = (function () {
         });
     };
     EventsComponent.prototype.mapOrganizerEventsData = function (data) {
-        console.log('Map organizer events: ', data);
         this.events = data;
         for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
             var event_1 = data_1[_i];
@@ -55,6 +54,17 @@ var EventsComponent = (function () {
             }
         }
     };
+    EventsComponent.prototype.mapStudentCalendarEvents = function (data) {
+        for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
+            var event_2 = data_2[_i];
+            if (this.calendarEvents) {
+                this.calendarEvents.push(new calendarevent_class_1.CalendarEvent(event_2.eventTitle, event_2.eventStartDate, event_2.eventEndDate));
+            }
+            else {
+                this.calendarEvents = [(new calendarevent_class_1.CalendarEvent(event_2.eventTitle, event_2.eventStartDate, event_2.eventEndDate))];
+            }
+        }
+    };
     EventsComponent.prototype.getEventsByOrganizer = function (user) {
         var _this = this;
         this.eventsService.getEventsByOrganizer(user.userId)
@@ -63,7 +73,13 @@ var EventsComponent = (function () {
     EventsComponent.prototype.getAllEvents = function () {
         var _this = this;
         this.eventsService.getAllEvents()
-            .subscribe(function (data) { return _this.mapOrganizerEventsData(data); });
+            .subscribe(function (data) { return _this.events = data; });
+    };
+    EventsComponent.prototype.getSubscribedEventsByStudent = function (user) {
+        var _this = this;
+        console.log('USER ID:!!!! ', this.userId);
+        this.eventsService.getSubscribedEventsByStudent(this.userId)
+            .subscribe(function (data) { return _this.mapStudentCalendarEvents(data); });
     };
     EventsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -74,7 +90,7 @@ var EventsComponent = (function () {
     };
     EventsComponent = __decorate([
         core_1.Component({
-            template: "\n    <navigation></navigation>\n    <div class=\"container\">\n      <h2>My LUT Calendar</h2>\n      <p-schedule *ngIf=\"calendarEvents\" [events]=\"calendarEvents\"></p-schedule>\n      <event-list *ngIf=\"user && events\" [user]=\"user\" [events]=\"events\"></event-list>\n      <img *ngIf=\"!user || !events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    </div>\n  "
+            template: "\n    <navigation></navigation>\n    <div class=\"container\">\n      <h2>My LUT Calendar</h2>\n      <p-schedule *ngIf=\"calendarEvents\" [events]=\"calendarEvents\"></p-schedule>\n      <event-list *ngIf=\"user && events && userId\" [user]=\"user\" [events]=\"events\" [userId]=\"userId\"></event-list>\n      <img *ngIf=\"!user || !events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [student_service_1.StudentService, organizer_service_1.OrganizerService, events_service_1.EventsService, router_1.ActivatedRoute, router_1.Router])
     ], EventsComponent);

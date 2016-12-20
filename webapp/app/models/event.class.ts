@@ -12,6 +12,7 @@ export class Event {
 		public eventAddress : string,
 		public eventLatitude : number,
 		public eventLongitude: number,
-		public eventOrganizer: string
+		public eventOrganizer: string,
+		public students: string[]
 	){}
 }

@@ -10,8 +10,9 @@ export class EventsService {
   private organizerURL = 'api/organizer';
   private eventsURL = 'api/events';
   
-    private newOrganizerURL = 'api/newOrganizer';
+  private newOrganizerURL = 'api/newOrganizer';
   private newEventURL = 'api/newEvent';
+  private newSubscribeURL = 'api/eventSubscription';
   
   private extractData(res: Response) {
     let body = res.json();
@@ -57,6 +58,11 @@ export class EventsService {
     
     return this.http.put(this.newEventURL + '/' + event._id, body, options);
   }
+  
+  getSubscribedEventsByStudent(studentId: string) {
+    return this.http.get(this.newEventURL + '/student/' + studentId)
+          .map(response => <Event[]>response.json() as Event[]);
+  }
 
   getAllEvents() {
     return this.http.get(this.newEventURL)
@@ -66,6 +72,22 @@ export class EventsService {
   getEventsByOrganizer(organizerId: string) {
     return this.http.get(this.newEventURL+'/organizer/'+ organizerId)
           .map(response => <Event[]>response.json() as Event[]);
+  }
+  
+  subscribe(userId, eventId) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify({studentId: userId});
+    
+    return this.http.put(this.newSubscribeURL + '/' + eventId, body, options);
+  }
+  
+  unSubscribe(userId, eventId) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify({studentId: userId});
+    
+    return this.http.delete(this.newSubscribeURL + '/' + eventId + '/user/' + userId, options);
   }
 
 }

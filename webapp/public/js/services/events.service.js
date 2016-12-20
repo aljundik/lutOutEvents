@@ -18,6 +18,7 @@ var EventsService = (function () {
         this.eventsURL = 'api/events';
         this.newOrganizerURL = 'api/newOrganizer';
         this.newEventURL = 'api/newEvent';
+        this.newSubscribeURL = 'api/eventSubscription';
     }
     EventsService.prototype.extractData = function (res) {
         var body = res.json();
@@ -53,6 +54,10 @@ var EventsService = (function () {
         var body = JSON.stringify(event);
         return this.http.put(this.newEventURL + '/' + event._id, body, options);
     };
+    EventsService.prototype.getSubscribedEventsByStudent = function (studentId) {
+        return this.http.get(this.newEventURL + '/student/' + studentId)
+            .map(function (response) { return response.json(); });
+    };
     EventsService.prototype.getAllEvents = function () {
         return this.http.get(this.newEventURL)
             .map(function (response) { return response.json(); });
@@ -60,6 +65,18 @@ var EventsService = (function () {
     EventsService.prototype.getEventsByOrganizer = function (organizerId) {
         return this.http.get(this.newEventURL + '/organizer/' + organizerId)
             .map(function (response) { return response.json(); });
+    };
+    EventsService.prototype.subscribe = function (userId, eventId) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        var body = JSON.stringify({ studentId: userId });
+        return this.http.put(this.newSubscribeURL + '/' + eventId, body, options);
+    };
+    EventsService.prototype.unSubscribe = function (userId, eventId) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        var body = JSON.stringify({ studentId: userId });
+        return this.http.delete(this.newSubscribeURL + '/' + eventId + '/user/' + userId, options);
     };
     EventsService = __decorate([
         core_1.Injectable(), 

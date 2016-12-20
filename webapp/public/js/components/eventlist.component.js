@@ -17,6 +17,14 @@ var EventListComponent = (function () {
         this.organizerType = 'organizer';
         this.studentType = 'student';
     }
+    EventListComponent.prototype.isSusbscribed = function (event) {
+        if (event.students && event.students.indexOf(this.userId) >= 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
     EventListComponent.prototype.deleteEvent = function (event) {
         var _this = this;
         this.eventsService.deleteEvent(event)
@@ -26,6 +34,29 @@ var EventListComponent = (function () {
         var index = this.events.indexOf(event);
         this.events.splice(index, 1);
     };
+    EventListComponent.prototype.subscribeEvent = function (event) {
+        var _this = this;
+        if (this.isSusbscribed(event)) {
+            this.eventsService.unSubscribe(this.userId, event._id)
+                .subscribe(function (data) { return _this.successSubscription(data, event); });
+        }
+        else {
+            this.eventsService.subscribe(this.userId, event._id)
+                .subscribe(function (data) { return _this.successSubscription(data, event); });
+        }
+    };
+    EventListComponent.prototype.successSubscription = function (data, event) {
+        var index = this.events.indexOf(event);
+        if (this.isSusbscribed(event)) {
+            var studentIndex = event.students.indexOf(this.userId);
+            this.events[index].students.splice(studentIndex, 1);
+        }
+        else {
+            var studentIndex = event.students.indexOf(this.userId);
+            this.events[index].students.splice(studentIndex, 0, this.userId);
+            console.log('subscribed!');
+        }
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', user_class_1.User)
@@ -34,10 +65,14 @@ var EventListComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Array)
     ], EventListComponent.prototype, "events", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], EventListComponent.prototype, "userId", void 0);
     EventListComponent = __decorate([
         core_1.Component({
             selector: 'event-list',
-            template: "\n    <h2 class=\"section-title\">Events</h2>\n    <div *ngIf=\"user.userType === organizerType\" class=\"row\">\n      <button routerLink=\"/event/addEvent/{{user.userId}}\"  class=\"btn btn-default\" type=\"button\">Add New Event</button>\n    </div>\n    <img *ngIf=\"!events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    <div *ngFor=\"let event of events\">\n      <div class=\"col-xs-12 col-md-8 col-md-push-2 event-box\">\n        <h3 class=\"col-xs-12 event-box__title\">{{event.eventTitle}}</h3>\n        <div class=\"col-xs-12 event-box__info-section\">\n          <div class=\"event-box__info\">\n            <img src=\"./dist/img/calendar.png\" width=\"40px\" height=\"40px\">\n            <div class=\"text-center event-box__info__data\">{{event.eventStartDate | date:'yMMMd'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <img src=\"./dist/img/alarm-clock.png\" width=\"40px\" height=\"40px\">\n            <div class=\"text-center event-box__info__data\">{{event.eventStartDate | date:'jms'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <img src=\"./dist/img/money.png\" width=\"40px\" height=\"40px\">\n            <div class=\"text-center event-box__info__data\">{{event.eventPrice | currency:'EUR':true:'1.2-2'}}</div>\n          </div>\n          <div class=\"event-box__info event-box__info--pointer\" [routerLink]=\"['/event', event._id,'user', user.userId]\">\n            <img src=\"./dist/img/loupe.png\" width=\"40px\" height=\"40px\">\n            <div class=\"text-center event-box__info__data\">See Details</div>\n          </div>\n          <div *ngIf=\"user.userType === studentType\" class=\"event-box__info event-box__info--pointer\">\n            <div class=\"fa fa-heart-o event-box__info__icon\"></div>\n            <div class=\"event-box__info__data\">Add</div>\n          </div>\n          <div *ngIf=\"user.userType === organizerType\" class=\"event-box__info event-box__info--pointer\">\n            <div class=\"row\">\n              <div class=\"col-xs-6 event-box__control\"><i (click)=\"deleteEvent(event)\" class=\"fa fa-trash-o\"></i></div>\n              <div class=\"col-xs-6 event-box__control\"><i routerLink=\"/event/addEvent/event/{{event._id}}\" class=\"fa fa-pencil\"></i></div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  "
+            template: "\n    <h2 class=\"section-title\">Events</h2>\n    <div *ngIf=\"user.userType === organizerType\" class=\"row\">\n      <button routerLink=\"/event/addEvent/{{user.userId}}\"  class=\"btn btn-default\" type=\"button\">Add New Event</button>\n    </div>\n    <img *ngIf=\"!events\" class=\"center-block\" src=\"./dist/img/loading-medium.gif\">\n    <div *ngFor=\"let event of events\">\n      <div class=\"col-xs-12 col-md-8 col-md-push-2 event-box\">\n        <h3 class=\"col-xs-12 event-box__title\">{{event.eventTitle}}</h3>\n        <div class=\"col-xs-12 event-box__info-section\">\n          <div class=\"event-box__info\">\n            <img src=\"./dist/img/calendar.png\" width=\"40px\" height=\"40px\">\n            <div class=\"text-center event-box__info__data\">{{event.eventStartDate | date:'yMMMd'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <img src=\"./dist/img/alarm-clock.png\" width=\"40px\" height=\"40px\">\n            <div class=\"text-center event-box__info__data\">{{event.eventStartDate | date:'jms'}}</div>\n          </div>\n          <div class=\"event-box__info\">\n            <img src=\"./dist/img/money.png\" width=\"40px\" height=\"40px\">\n            <div class=\"text-center event-box__info__data\">{{event.eventPrice | currency:'EUR':true:'1.2-2'}}</div>\n          </div>\n          <div class=\"event-box__info event-box__info--pointer\" [routerLink]=\"['/event', event._id,'user', user.userId]\">\n            <img src=\"./dist/img/loupe.png\" width=\"40px\" height=\"40px\">\n            <div class=\"text-center event-box__info__data\">See Details</div>\n          </div>\n          <div (click)=\"subscribeEvent(event)\" *ngIf=\"user.userType === studentType\" class=\"event-box__info event-box__info--pointer\">\n            <div *ngIf=\"isSusbscribed(event)\" class=\"fa fa-heart event-box__info__icon\"></div>\n            <div *ngIf=\"!isSusbscribed(event)\" class=\"fa fa-heart-o event-box__info__icon\"></div>\n            <div *ngIf=\"!isSusbscribed(event)\" class=\"event-box__info__data\">Add</div>\n            <div *ngIf=\"isSusbscribed(event)\" class=\"event-box__info__data\">Remove Event</div>\n          </div>\n          <div *ngIf=\"user.userType === organizerType\" class=\"event-box__info event-box__info--pointer\">\n            <div class=\"row\">\n              <div class=\"col-xs-6 event-box__control\"><i (click)=\"deleteEvent(event)\" class=\"fa fa-trash-o\"></i></div>\n              <div class=\"col-xs-6 event-box__control\"><i routerLink=\"/event/addEvent/event/{{event._id}}\" class=\"fa fa-pencil\"></i></div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [events_service_1.EventsService])
     ], EventListComponent);
